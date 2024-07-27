@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }) {
-    const beforeLogin = false;
+    const beforeLogin = true;
   return (
     <ThemeProvider>
       <html lang="en">
