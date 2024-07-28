@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "config/material-tailwind-theme-provider";
 import MainLayout from "components/auth/layouts/main-layout";
 import Auth from "components/auth";
+import ReocilProvider from "config/ReocilPorvider";
+import ReactQueryClientProvider from "config/ReactQueryClientPorvider copy";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,23 +15,28 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }) {
-    const beforeLogin = true;
+  const beforeLogin = true;
   return (
-    <ThemeProvider>
-      <html lang="en">
-        <head>
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-            crossOrigin="anonymous"
-            referrerPolicy="no-referrer"
-          />
-        </head>
-        <body className={inter.className}>
-          {beforeLogin ?<MainLayout>{children}</MainLayout> : <Auth /> }
-          {children}</body>
-      </html>
-    </ThemeProvider>
+    <ReocilProvider>
+      <ReactQueryClientProvider>
+        <ThemeProvider>
+          <html lang="en">
+            <head>
+              <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+                integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+                crossOrigin="anonymous"
+                referrerPolicy="no-referrer"
+              />
+            </head>
+            <body className={inter.className}>
+              {beforeLogin ? <MainLayout>{children}</MainLayout> : <Auth />}
+              {children}
+            </body>
+          </html>
+        </ThemeProvider>
+      </ReactQueryClientProvider>
+    </ReocilProvider>
   );
 }
