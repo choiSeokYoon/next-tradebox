@@ -1,29 +1,101 @@
 "use client";
 
 import { Button, Input } from "@material-tailwind/react";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { createBrowserSupabaseClient } from "utils/supabase/client";
 
 export default function SignUp({ setView }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [otp, setOtp] = useState("");
+  const [confirmationRequired, setConfirmationRequired] = useState(false);
+
+  const supabase = createBrowserSupabaseClient();
+
+  const signupMutation = useMutation({
+    mutationFn: async () => {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: "https://loacalhost:3000/signup/confirm",
+        },
+      });
+      if (data) {
+        setConfirmationRequired(true);
+      }
+      if (error) {
+        alert(error.message);
+      }
+    },
+  });
+
+  const verifyOtpMutation = useMutation({
+    mutationFn: async () => {
+      const { data, error } = await supabase.auth.verifyOtp({
+        type: "signup",
+        email,
+        token: otp,
+      });
+      if (error) {
+        alert(error.message);
+      }
+    },
+  });
   return (
     <div className="flex flex-col w-96">
       <div className="pt-8 pb-6 px-10 w-full flex flex-col items-center justify-center max-w-3xl bg-white gap-2 rounded-lg">
-        <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">회원가입</h2>
-        <Input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          label="email"
-          type="email"
-        />
-        <Input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          label="password"
-          type="password"
-        />
-        <Button className="mt-2">
-          가입하기
+        <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">
+          회원가입
+        </h2>
+        {confirmationRequired ? (
+          <Input
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+            label="otp"
+            type="text"
+            className="w-full rounded-sm"
+            placeholder="6자리 OTP를 입력해주세요"
+          />
+        ) : (
+          <>
+            <Input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              label="email"
+              type="email"
+            />
+            <Input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              label="password"
+              type="password"
+            />
+          </>
+        )}
+
+        <Button
+          className="mt-2"
+          onClick={() => {
+            if (confirmationRequired) {
+              verifyOtpMutation.mutate();
+            } else {
+              signupMutation.mutate();
+            }
+          }}
+          loading={
+            confirmationRequired
+              ? verifyOtpMutation.isPending
+              : signupMutation.isPending
+          }
+          disabled={
+            confirmationRequired
+              ? verifyOtpMutation.isPending
+              : signupMutation.isPending
+          }
+        >
+          {confirmationRequired ? "인증하기" : "가입하기"}
         </Button>
       </div>
       <div className="text-end mt-4 pr-1">
