@@ -8,8 +8,11 @@ import {
   Person,
 } from "@mui/icons-material";
 import Link from "next/link";
+import LogoutButton from "./logout-button";
+import { createBrowserSupabaseClient } from "utils/supabase/client";
 
 export default function Sidebar() {
+  const supabase = createBrowserSupabaseClient();
   const links = [
     { href: "/", icon: <Home />, label: "홈" },
     { href: "/add-item", icon: <AddBox />, label: "교환 등록" },
@@ -37,13 +40,9 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      <button
-        onClick={() => console.log("logout")}
-        className="flex items-center text-gray-600 hover:text-red-600 transition-colors"
-      >
-        <Logout className="mr-4" />
-        <span>로그아웃</span>
-      </button>
+      <LogoutButton>
+      <span>로그아웃</span>
+      </LogoutButton>
     </aside>
   );
 }
