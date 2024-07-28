@@ -9,46 +9,73 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      exchange_images: {
+        Row: {
+          created_at: string | null
+          exchange_id: number | null
+          id: number
+          image_url: string
+        }
+        Insert: {
+          created_at?: string | null
+          exchange_id?: number | null
+          id?: number
+          image_url: string
+        }
+        Update: {
+          created_at?: string | null
+          exchange_id?: number | null
+          id?: number
+          image_url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exchange_images_exchange_id_fkey"
+            columns: ["exchange_id"]
+            isOneToOne: false
+            referencedRelation: "exchanges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       exchanges: {
         Row: {
-          created_at: string
+          category: string[] | null
+          created_at: string | null
           description: string | null
-          id: string
+          id: number
           item_condition: string
           location: string
+          status: string | null
           title: string
           updated_at: string | null
           user_id: string
         }
         Insert: {
-          created_at?: string
+          category?: string[] | null
+          created_at?: string | null
           description?: string | null
-          id?: string
+          id?: number
           item_condition: string
           location: string
+          status?: string | null
           title: string
           updated_at?: string | null
           user_id: string
         }
         Update: {
-          created_at?: string
+          category?: string[] | null
+          created_at?: string | null
           description?: string | null
-          id?: string
+          id?: number
           item_condition?: string
           location?: string
+          status?: string | null
           title?: string
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "exchanges_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
     }
     Views: {
