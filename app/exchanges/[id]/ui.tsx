@@ -1,0 +1,46 @@
+"use client";
+
+import Image from "next/image";
+
+export default function UI({ exchangeProduct }) {
+    
+  return (
+    <div className="w-full pt-4 pl-64 pr-64 flex flex-col pb-10">
+      <div className="flex items-center justify-center">
+        <Image
+          src="/images/category-game.jpg"
+          alt=""
+          width={500}
+          height={500}
+          className="rounded-lg"
+        />
+      </div>
+
+      <ul className="space-y-2 pt-10">
+        <li className="text-lg font-semibold text-gray-800">
+          {exchangeProduct.title}
+        </li>
+        <li className="text-gray-600">
+            <p>{exchangeProduct.created_at}</p>
+            <p>{exchangeProduct.location}</p>
+        </li>
+        <li className="text-gray-600">{exchangeProduct.category}</li>
+        <li className="text-gray-600">{exchangeProduct.item_condition}</li>
+        <li>
+          <div
+            className="w-full h-64 overflow-y-auto p-4"
+            style={{
+              overflowWrap: "break-word",
+              wordWrap: "break-word",
+              wordBreak: "break-word",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {exchangeProduct.description}
+          </div>
+        </li>
+        <li></li>
+      </ul>
+    </div>
+  );
+}

@@ -7,7 +7,10 @@ export default function MainLayout({ children }) {
       <Header />
       <div className="flex flex-1">
         <Sidebar />
+        <div className="flex-1">
         {children}
+        </div>
+      
       </div>
     </main>
   );

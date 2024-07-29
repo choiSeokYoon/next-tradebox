@@ -7,11 +7,10 @@ export type ExchangeRow = Database["public"]["Tables"]["exchanges"]["Row"];
 
 function handleError(error) {
   console.log(error);
-  throw new Error(error.message);
+  throw null;
 }
 
-
-export async function getExchanges({
+export async function searchExchanges({
   searchInput = "",
 }): Promise<ExchangeRow[]> {
   const supabase = await createServerSupabaseClient();
@@ -26,4 +25,16 @@ export async function getExchanges({
   }
 
   return data;
+}
+
+export async function getExchange(id: string | number): Promise<ExchangeRow | null> {
+    const supabase = await createServerSupabaseClient();
+    const { data, error } = await supabase
+      .from("exchanges")
+      .select("*, exchange_images(*)")
+      .eq("id", id)
+      .single();
+    if (error) throw error;
+    return data;
+
 }
