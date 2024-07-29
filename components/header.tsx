@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { searchState } from "recoil/atoms";
 
 export default function Header() {
-  const [search, setSearch] = useState("");
+    const [searchInput, setSearchInput] = useRecoilState(searchState);
 
   return (
     <header className="p-10 h-16 left-0 right-0 border-b-2 border-gray-300 flex items-center">
@@ -18,8 +20,8 @@ export default function Header() {
             type="text"
             className="bg-transparent w-full pl-8"
             placeholder="Search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
       </div>
