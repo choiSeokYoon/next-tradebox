@@ -3,13 +3,13 @@
 import Image from "next/image";
 
 export default function UI({ exchangeProduct }) {
-    
+    console.log(exchangeProduct.exchange_images[0].image_url)
   return (
     <div className="w-full pt-4 pl-64 pr-64 flex flex-col pb-10">
       <div className="flex items-center justify-center">
         <Image
-          src="/images/category-game.jpg"
-          alt=""
+          src={exchangeProduct.exchange_images[0].image_url}
+          alt="교환 물건 이미지"
           width={500}
           height={500}
           className="rounded-lg"
