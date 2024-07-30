@@ -1,9 +1,15 @@
+import { createServerSupabaseClient } from "utils/supabase/server";
 import UI from "./ui";
 
 
 
-export default function Home() {
+
+export default async function Home() {
+
+  const supabase = await createServerSupabaseClient()
+  const {data: {session}} = await supabase.auth.getSession()
+
   return (
-    <UI/>
+    <UI session={session}/>
   );
 }
