@@ -1,5 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createExchange, deleteExchange, searchExchanges } from "actions/exchange-actions";
+import {
+  createExchange,
+  deleteExchange,
+  getExchange,
+  searchExchanges,
+  updateExchange,
+} from "actions/exchange-actions";
 import { queryClient } from "config/ReactQueryClientPorvider";
 import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
@@ -14,18 +20,38 @@ export const useFetchExchanges = () => {
   });
 };
 
+export const useFetchExchangeItam = (params) => {
+  return useQuery({
+    queryKey: ["get_exchangeItem", params],
+    queryFn: () => getExchange(params.id)
+  })
+}
+
 export const useCreateExchange = (onSuccessCallback) => {
-    return useMutation({
-      mutationFn: createExchange,
-      onSuccess: (data) => {
-        onSuccessCallback(data);
-        queryClient.invalidateQueries({
-          queryKey: ["get_exchanges"],
-        });
-      },
-    });
-  };
-  
+  return useMutation({
+    mutationFn: createExchange,
+    onSuccess: (data) => {
+      onSuccessCallback(data);
+      queryClient.invalidateQueries({
+        queryKey: ["get_exchanges"],
+      });
+    },
+  });
+};
+
+export const useUpdateExchange = (onSuccessCallback) => {
+  const router = useRouter();
+  return useMutation({
+    mutationFn: updateExchange,
+    onSuccess: (data) => {
+      router.push("/");
+      onSuccessCallback(data);
+      queryClient.invalidateQueries({
+        queryKey: ["get_exchanges"],
+      });
+    },
+  });
+};
 
 export const useDeleteExchange = (exchangeId) => {
   const router = useRouter();
