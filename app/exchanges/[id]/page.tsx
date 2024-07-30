@@ -1,7 +1,7 @@
 import { getExchange } from "actions/exchange-actions";
 import UI from "./ui";
 
-export default async function Page({ params }) {
+export default async function ExchangeDetail({ params }) {
   const exchange = await getExchange(params.id);
 
   return (
