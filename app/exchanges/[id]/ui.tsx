@@ -1,7 +1,7 @@
 "use client";
 
 import { Spinner } from "@material-tailwind/react";
-import ExchangeDetail from "./components/exchange-detail";
+import ExchangeItemDetail from "./components/exchange-item-detail";
 import { useFetchExchangeItam } from "hooks/query/useExchange";
 
 export default function UI({ params }) {
@@ -18,7 +18,7 @@ export default function UI({ params }) {
 
   return (
     <div className="w-full pt-4 pl-64 pr-64 flex flex-col pb-10">
-      <ExchangeDetail exchangeProduct={exchangeProduct}></ExchangeDetail>
+      <ExchangeItemDetail exchangeProduct={exchangeProduct}></ExchangeItemDetail>
     </div>
   );
 }

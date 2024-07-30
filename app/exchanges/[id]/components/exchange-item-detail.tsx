@@ -7,7 +7,7 @@ import React from 'react'
 import { useRecoilValue } from 'recoil';
 import { userEmailState } from 'recoil/atoms';
 
-export default function ExchangeDetail({exchangeProduct}) {
+export default function ExchangeItemDetail({exchangeProduct}) {
     const userEmail = useRecoilValue(userEmailState);
     const deleteExchangeMutation = useDeleteExchange(exchangeProduct.id);
     const imageUrl = exchangeProduct.exchange_images?.[0]?.image_url;

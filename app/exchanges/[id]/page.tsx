@@ -1,7 +1,7 @@
 import { getExchange } from "actions/exchange-actions";
 import UI from "./ui";
 
-export default async function ExchangeDetail({ params }) {
+export default async function ExchangeDetailPage({ params }) {
 
   return (
     <main>
