@@ -40,7 +40,7 @@ export type Database = {
       }
       exchanges: {
         Row: {
-          category: string[] | null
+          category: string
           created_at: string | null
           description: string | null
           id: number
@@ -48,11 +48,12 @@ export type Database = {
           location: string
           status: string | null
           title: string
+          trade: string | null
           updated_at: string | null
           user_id: string
         }
         Insert: {
-          category?: string[] | null
+          category: string
           created_at?: string | null
           description?: string | null
           id?: number
@@ -60,11 +61,12 @@ export type Database = {
           location: string
           status?: string | null
           title: string
+          trade?: string | null
           updated_at?: string | null
           user_id: string
         }
         Update: {
-          category?: string[] | null
+          category?: string
           created_at?: string | null
           description?: string | null
           id?: number
@@ -72,10 +74,43 @@ export type Database = {
           location?: string
           status?: string | null
           title?: string
+          trade?: string | null
           updated_at?: string | null
           user_id?: string
         }
         Relationships: []
+      }
+      user_interactions: {
+        Row: {
+          created_at: string | null
+          exchange_id: number
+          id: number
+          interaction_type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          exchange_id: number
+          id?: number
+          interaction_type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          exchange_id?: number
+          id?: number
+          interaction_type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_interactions_exchange_id_fkey"
+            columns: ["exchange_id"]
+            isOneToOne: false
+            referencedRelation: "exchanges"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
