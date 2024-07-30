@@ -4,7 +4,7 @@ import { Textarea, Select, Option, Input } from "@material-tailwind/react";
 import { createExchange } from "actions/exchange-actions";
 import FileDragdropZone from "./components/file-dragdropzone";
 import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "config/ReactQueryClientPorvider copy";
+import { queryClient } from "config/ReactQueryClientPorvider";
 
 export default function UI() {
   const [title, setTitle] = useState("");
@@ -114,7 +114,7 @@ export default function UI() {
             className="mt-4 bg-gray-700 text-white font-bold py-2 rounded hover:bg-gray-900 transition duration-200"
             disabled={createExchangeMutation.isPending}
           >
-            {createExchangeMutation.isPending ? '작성 중...' : '작성 완료'}
+            {createExchangeMutation.isPending ? "작성 중..." : "작성 완료"}
           </button>
         </form>
       )}

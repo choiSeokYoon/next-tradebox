@@ -68,4 +68,25 @@ export async function createExchange(exchange: ExchangeRowInsert) {
     }
     return data && data[0] ? data[0].id : null;
   }
+
+  export async function deleteExchange(id: number) {
+    const supabase = await createServerSupabaseClient();
+    const { data: { user } } = await supabase.auth.getUser();
+  
+    if (!user) {
+      throw new Error("로그인 확인 필요");
+    }
+  
+    const { data, error } = await supabase
+      .from("exchanges")
+      .delete()
+      .eq("id", id)
+      .eq("user_id", user.email);
+  
+    if (error) {
+      handleError(error);
+    }
+  
+    return data;
+  }
   
