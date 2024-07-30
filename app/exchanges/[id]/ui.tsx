@@ -1,27 +1,16 @@
 "use client";
 
 import { Spinner } from "@material-tailwind/react";
-import { useMutation } from "@tanstack/react-query";
-import { deleteExchange } from "actions/exchange-actions";
-import { queryClient } from "config/ReactQueryClientPorvider";
+import { useDeleteExchange } from "hooks/query/useExchange";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
 import { userEmailState } from "recoil/atoms";
 
 export default function UI({ exchangeProduct }) {
   const userEmail = useRecoilValue(userEmailState);
   const imageUrl = exchangeProduct.exchange_images?.[0]?.image_url;
-  const router = useRouter()
-  const deleteExchangeMutation = useMutation({
-    mutationFn: () => deleteExchange(exchangeProduct.id),
-    onSuccess: () => {
-        router.push("/")
-      queryClient.invalidateQueries({
-        queryKey: ["get_exchanges"],
-      });
-    },
-  });
+
+  const deleteExchangeMutation = useDeleteExchange(exchangeProduct.id);
 
   return (
     <div className="w-full pt-4 pl-64 pr-64 flex flex-col pb-10">

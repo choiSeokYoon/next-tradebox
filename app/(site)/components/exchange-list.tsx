@@ -1,19 +1,9 @@
 "use client";
-
-import { useQuery } from "@tanstack/react-query";
-import { searchExchanges } from "actions/exchange-actions";
 import ExchangeProduct from "components/exchange-product";
-import { useState } from "react";
-import { useRecoilValue } from "recoil";
-import { searchState } from "recoil/atoms";
+import { useFetchExchanges } from "hooks/query/useExchange";
 
 export default function ExchangeList() {
-  const searchInput = useRecoilValue(searchState);
-  const exchangesQuery = useQuery({
-    queryKey: ["get_exchanges", searchInput],
-    queryFn: () => searchExchanges({ searchInput }),
-
-  });
+  const exchangesQuery = useFetchExchanges();
 
   return (
     <div>

@@ -1,10 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { Textarea, Select, Option, Input } from "@material-tailwind/react";
-import { createExchange } from "actions/exchange-actions";
 import FileDragdropZone from "./components/file-dragdropzone";
-import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "config/ReactQueryClientPorvider";
+import { useCreateExchange } from "hooks/query/useExchange";
+// Ensure the path is correct
 
 export default function UI() {
   const [title, setTitle] = useState("");
@@ -25,18 +24,12 @@ export default function UI() {
     { value: "sport", label: "스포츠" },
   ];
 
-  const createExchangeMutation = useMutation({
-    mutationFn: createExchange,
-    onSuccess: (data) => {
-      setExchangeId(data);
-      setFileDragDropVisible(true);
-      queryClient.invalidateQueries({
-        queryKey: ["get_exchanges"],
-      });
-    },
+  const createExchangeMutation = useCreateExchange((data) => {
+    setExchangeId(data);
+    setFileDragDropVisible(true);
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     createExchangeMutation.mutate({
       title,
