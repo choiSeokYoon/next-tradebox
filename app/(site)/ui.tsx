@@ -4,14 +4,19 @@ import { useEffect } from "react";
 import Category from "./components/category";
 import ExchangeList from "./components/exchange-list";
 import { useRecoilState } from "recoil";
-import { userEmailState } from "recoil/atoms";
+import { userInfoState } from "recoil/atoms";
 
 
 export default function UI({session}) {
-  const [userEmail, setUserEmail] = useRecoilState(userEmailState)
-  useEffect(()=>{
-    setUserEmail(session?.user?.email)
-  },[session])
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState)
+
+  useEffect(() => {
+    if (session?.user) {
+      setUserInfo({ email: session.user.email, id: session.user.id });
+    }
+  }, [session]);
+  console.log(userInfo )
+
 
  
   return (

@@ -6,9 +6,9 @@ const { persistAtom } = recoilPersist({
   storage: localStorage,
 });
 
-export const userEmailState = atom({
-  key: "userEmailState",
-  default: "",
+export const userInfoState = atom({
+  key: "userInfoState",
+  default: { email: "", id: "" },
   effects_UNSTABLE: [persistAtom],
 });
 
