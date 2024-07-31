@@ -80,34 +80,38 @@ export type Database = {
         }
         Relationships: []
       }
-      user_interactions: {
+      likes: {
         Row: {
           created_at: string | null
           exchange_id: number
-          id: number
-          interaction_type: string
+          id: string
           user_id: string
         }
         Insert: {
           created_at?: string | null
           exchange_id: number
-          id?: number
-          interaction_type: string
+          id?: string
           user_id: string
         }
         Update: {
           created_at?: string | null
           exchange_id?: number
-          id?: number
-          interaction_type?: string
+          id?: string
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "user_interactions_exchange_id_fkey"
+            foreignKeyName: "likes_exchange_id_fkey"
             columns: ["exchange_id"]
             isOneToOne: false
             referencedRelation: "exchanges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
         ]
