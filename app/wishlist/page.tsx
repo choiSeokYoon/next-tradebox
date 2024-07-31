@@ -1,7 +1,6 @@
-import React from 'react'
+import React from "react";
+import UI from "./ui";
 
-export default function page() {
-  return (
-    Ui
-  )
+export default function WishlistPage() {
+  return <UI />;
 }

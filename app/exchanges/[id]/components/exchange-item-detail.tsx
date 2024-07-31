@@ -5,10 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 import { useRecoilValue } from 'recoil';
-import { userEmailState } from 'recoil/atoms';
+import { userInfoState } from 'recoil/atoms';
 
 export default function ExchangeItemDetail({exchangeProduct}) {
-    const userEmail = useRecoilValue(userEmailState);
+    const userInfo = useRecoilValue(userInfoState);
     const deleteExchangeMutation = useDeleteExchange(exchangeProduct.id);
     const imageUrl = exchangeProduct.exchange_images?.[0]?.image_url;
     console.log(exchangeProduct.exchange_images?.[0]?.image_url);
@@ -58,7 +58,7 @@ export default function ExchangeItemDetail({exchangeProduct}) {
           </div>
         </li>
       </ul>
-      {userEmail === exchangeProduct.user_id && (
+      {userInfo === exchangeProduct.user_id && (
         <div className="flex space-x-4 pt-4 justify-end">
           <Link href={`/exchanges/${exchangeProduct.id}/edit`}>
             <button className="bg-blue-500 text-white px-4 py-2 rounded">
