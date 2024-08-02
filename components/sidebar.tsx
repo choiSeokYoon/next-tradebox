@@ -16,7 +16,7 @@ export default function Sidebar() {
     { href: "/", icon: <Home />, label: "홈" },
     { href: "/add-exchange-item", icon: <AddBox />, label: "교환 등록" },
     { href: "/wishlist", icon: <Favorite />, label: "관심 목록" },
-    { href: "/chat", icon: <Message />, label: "채팅" },
+    { href: "/chat-list", icon: <Message />, label: "채팅" },
     { href: "/profile", icon: <Person />, label: "프로필" },
   ];
 

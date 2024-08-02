@@ -48,9 +48,9 @@ export async function getExchange(
   return data;
 }
 
-
 export async function createExchange(exchange: ExchangeRowInsert) {
   const supabase = await createServerSupabaseClient();
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -64,6 +64,7 @@ export async function createExchange(exchange: ExchangeRowInsert) {
     .insert({
       ...exchange,
       user_id: user.email,
+      user_uid: user.id,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     })
@@ -76,29 +77,29 @@ export async function createExchange(exchange: ExchangeRowInsert) {
 }
 
 export async function updateExchange(exchange: ExchangeRowUpdate) {
-    const supabase = await createServerSupabaseClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-  
-    if (!user) {
-      throw new Error("로그인 확인 필요");
-    }
-  
-    const { data, error } = await supabase
-      .from("exchanges")
-      .update({
-        ...exchange,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", exchange.id)
-      .eq("user_id", user.email);
-  
-    if (error) {
-      handleError(error);
-    }
-    return data;
+  const supabase = await createServerSupabaseClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    throw new Error("로그인 확인 필요");
   }
+
+  const { data, error } = await supabase
+    .from("exchanges")
+    .update({
+      ...exchange,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", exchange.id)
+    .eq("user_id", user.email);
+
+  if (error) {
+    handleError(error);
+  }
+  return data;
+}
 
 export async function deleteExchange(id: number) {
   const supabase = await createServerSupabaseClient();
