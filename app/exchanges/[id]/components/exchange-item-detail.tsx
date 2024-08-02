@@ -1,37 +1,37 @@
 "use client";
-import { Spinner } from '@material-tailwind/react';
-import { useDeleteExchange } from 'hooks/query/useExchange';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react'
-import { useRecoilValue } from 'recoil';
-import { userInfoState } from 'recoil/atoms';
+import { Spinner } from "@material-tailwind/react";
+import { useRecoilValue } from "recoil";
+import { userInfoState } from "recoil/atoms";
 
-export default function ExchangeItemDetail({exchangeProduct}) {
-    const userInfo = useRecoilValue(userInfoState);
-    const deleteExchangeMutation = useDeleteExchange(exchangeProduct.id);
-    const imageUrl = exchangeProduct.exchange_images?.[0]?.image_url;
-    console.log(exchangeProduct.exchange_images?.[0]?.image_url);
+import Image from "next/image";
+import Link from "next/link";
+import { useDeleteExchange } from "hooks/query/useExchange";
+import { useCreateChatRoom } from "hooks/query/useChat";
+
+export default function ExchangeItemDetail({ exchangeProduct }) {
+  const userInfo = useRecoilValue(userInfoState);
+  const deleteExchangeMutation = useDeleteExchange(exchangeProduct.id);
+  const createChatRoomMutation = useCreateChatRoom();
+  const imageUrl = exchangeProduct.exchange_images?.[0]?.image_url;
+
+  const startChat = () => {
+    createChatRoomMutation.mutate({
+      productId: exchangeProduct.id,
+      userId: exchangeProduct.user_uid,
+      title: exchangeProduct.title
+    });
+  };
+
   return (
     <div>
-       <div className="flex items-center justify-center">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt="교환 물건 이미지"
-            width={500}
-            height={500}
-            className="rounded-lg"
-          />
-        ) : (
-          <Image
-            src={"/images/image-not-found.png"}
-            width={500}
-            height={500}
-            alt={"교환 물건 이미지"}
-            className="rounded-lg"
-          />
-        )}
+      <div className="flex items-center justify-center">
+        <Image
+          src={imageUrl || "/images/image-not-found.png"}
+          alt="교환 물건 이미지"
+          width={500}
+          height={500}
+          className="rounded-lg"
+        />
       </div>
 
       <ul className="space-y-2 pt-10">
@@ -58,22 +58,35 @@ export default function ExchangeItemDetail({exchangeProduct}) {
           </div>
         </li>
       </ul>
-      {userInfo === exchangeProduct.user_id && (
-        <div className="flex space-x-4 pt-4 justify-end">
-          <Link href={`/exchanges/${exchangeProduct.id}/edit`}>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">
-              업데이트
+      <div className="flex space-x-4 pt-4 justify-end">
+        {userInfo.email === exchangeProduct.user_id ? (
+          <>
+            <Link href={`/exchanges/${exchangeProduct.id}/edit`}>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                업데이트
+              </button>
+            </Link>
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={() => deleteExchangeMutation.mutate()}
+            >
+              {deleteExchangeMutation.isPending ? (
+                <Spinner />
+              ) : (
+                <span>삭제</span>
+              )}
             </button>
-          </Link>
-
+          </>
+        ) : (
           <button
-            className="bg-red-500 text-white px-4 py-2 rounded"
-            onClick={() => deleteExchangeMutation.mutate()}
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+            onClick={startChat}
+            disabled={createChatRoomMutation.isPending}
           >
-            {deleteExchangeMutation.isPending ? <Spinner /> : <span>삭제</span>}
+            채팅하기
           </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
-  )
+  );
 }
