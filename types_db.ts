@@ -9,6 +9,84 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      chat_messages: {
+        Row: {
+          chat_room_id: string
+          content: string
+          created_at: string | null
+          id: string
+          sender_id: string
+        }
+        Insert: {
+          chat_room_id: string
+          content: string
+          created_at?: string | null
+          id?: string
+          sender_id: string
+        }
+        Update: {
+          chat_room_id?: string
+          content?: string
+          created_at?: string | null
+          id?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_rooms: {
+        Row: {
+          created_at: string | null
+          creator_id: string
+          exchange_id: number
+          id: string
+          participant_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          creator_id: string
+          exchange_id: number
+          id?: string
+          participant_id: string
+        }
+        Update: {
+          created_at?: string | null
+          creator_id?: string
+          exchange_id?: number
+          id?: string
+          participant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_rooms_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chat_rooms_exchange_id_fkey"
+            columns: ["exchange_id"]
+            isOneToOne: false
+            referencedRelation: "exchanges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chat_rooms_participant_id_fkey"
+            columns: ["participant_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       exchange_images: {
         Row: {
           created_at: string | null
@@ -51,6 +129,7 @@ export type Database = {
           trade: string | null
           updated_at: string | null
           user_id: string
+          user_uid: string | null
         }
         Insert: {
           category: string
@@ -64,6 +143,7 @@ export type Database = {
           trade?: string | null
           updated_at?: string | null
           user_id: string
+          user_uid?: string | null
         }
         Update: {
           category?: string
@@ -77,8 +157,17 @@ export type Database = {
           trade?: string | null
           updated_at?: string | null
           user_id?: string
+          user_uid?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "exchanges_user_uid_fkey"
+            columns: ["user_uid"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       likes: {
         Row: {
