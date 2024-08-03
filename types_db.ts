@@ -18,6 +18,7 @@ export type Database = {
           img_url: string | null
           item_title: string | null
           participant_id: string
+          user_nickname: string | null
         }
         Insert: {
           created_at?: string | null
@@ -27,6 +28,7 @@ export type Database = {
           img_url?: string | null
           item_title?: string | null
           participant_id: string
+          user_nickname?: string | null
         }
         Update: {
           created_at?: string | null
@@ -36,6 +38,7 @@ export type Database = {
           img_url?: string | null
           item_title?: string | null
           participant_id?: string
+          user_nickname?: string | null
         }
         Relationships: [
           {
@@ -103,6 +106,7 @@ export type Database = {
           trade: string | null
           updated_at: string | null
           user_id: string
+          user_nickname: string | null
           user_uid: string | null
         }
         Insert: {
@@ -117,6 +121,7 @@ export type Database = {
           trade?: string | null
           updated_at?: string | null
           user_id: string
+          user_nickname?: string | null
           user_uid?: string | null
         }
         Update: {
@@ -131,6 +136,7 @@ export type Database = {
           trade?: string | null
           updated_at?: string | null
           user_id?: string
+          user_nickname?: string | null
           user_uid?: string | null
         }
         Relationships: [
