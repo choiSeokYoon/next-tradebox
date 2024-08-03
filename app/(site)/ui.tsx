@@ -21,7 +21,6 @@ export default function UI({session}) {
  
   return (
     <div className="w-full">
-      <Category/>
       <div className="p-10">
         <ExchangeList/>
       </div>

@@ -1,4 +1,4 @@
-import { getExchange } from "actions/exchange-actions";
+
 import UI from "./ui";
 
 export default async function ExchangeDetailPage({ params }) {

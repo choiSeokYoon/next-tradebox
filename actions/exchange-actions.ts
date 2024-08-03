@@ -18,24 +18,32 @@ function handleError(error) {
   throw null;
 }
 
-export async function searchExchanges({
-  searchInput = "",
-}): Promise<ExchangeRow[]> {
+export async function fetchExchangesByCategoryAndSearch(category, searchInput) {
   const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
+  let query = supabase
     .from("exchanges")
     .select("*, exchange_images(*)")
-    .like("title", `%${searchInput}%`)
     .order("created_at", { ascending: false });
 
-  if (error) {
-    handleError(error);
+  if (category && category !== "전체") {
+    query = query.eq("category", category);
   }
 
-  return data;
+  if (searchInput) {
+    query = query.ilike("title", `%${searchInput}%`);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error fetching exchanges:", error);
+    throw error;
+  }
+
+  return data || [];
 }
 
-export async function getExchange(
+export async function fetchExchangeById(
   id: string | number
 ): Promise<ExchangeRow | null> {
   const supabase = await createServerSupabaseClient();
@@ -48,13 +56,26 @@ export async function getExchange(
   return data;
 }
 
+export async function getExchangeByCategory(
+  category: string
+): Promise<ExchangeRow[]> {
+  const supabase = await createServerSupabaseClient();
+  const { data, error } = await supabase
+    .from("exchanges")
+    .select("*, exchange_images(*)")
+    .eq("category", category);
+
+  if (error) throw error;
+  return data || [];
+}
+
 export async function createExchange(exchange: ExchangeRowInsert) {
   const supabase = await createServerSupabaseClient();
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
- 
+
   if (!user) {
     throw new Error("로그인 확인 필요");
   }

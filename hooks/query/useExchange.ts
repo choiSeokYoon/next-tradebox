@@ -2,8 +2,9 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   createExchange,
   deleteExchange,
-  getExchange,
-  searchExchanges,
+  fetchExchangeById,
+  fetchExchangesByCategoryAndSearch,
+
   updateExchange,
 } from "actions/exchange-actions";
 import { queryClient } from "config/ReactQueryClientPorvider";
@@ -11,19 +12,19 @@ import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
 import { searchState } from "recoil/atoms";
 
-export const useFetchExchanges = () => {
+export const useFetchExchanges = (category) => {
   const searchInput = useRecoilValue(searchState);
-
   return useQuery({
-    queryKey: ["get_exchanges", searchInput],
-    queryFn: () => searchExchanges({ searchInput }),
+    queryKey: ["get_exchanges", searchInput, category],
+    queryFn: () => fetchExchangesByCategoryAndSearch(category, searchInput),
+    refetchOnWindowFocus: false,
   });
 };
 
 export const useFetchExchangeItam = (params) => {
   return useQuery({
     queryKey: ["get_exchangeItem", params],
-    queryFn: () => getExchange(params.id)
+    queryFn: () => fetchExchangeById(params.id)
   })
 }
 
