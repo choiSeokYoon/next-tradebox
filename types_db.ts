@@ -9,44 +9,14 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      chat_messages: {
-        Row: {
-          chat_room_id: string
-          content: string
-          created_at: string | null
-          id: string
-          sender_id: string
-        }
-        Insert: {
-          chat_room_id: string
-          content: string
-          created_at?: string | null
-          id?: string
-          sender_id: string
-        }
-        Update: {
-          chat_room_id?: string
-          content?: string
-          created_at?: string | null
-          id?: string
-          sender_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "chat_messages_sender_id_fkey"
-            columns: ["sender_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       chat_rooms: {
         Row: {
           created_at: string | null
           creator_id: string
           exchange_id: number
           id: string
+          img_url: string | null
+          item_title: string | null
           participant_id: string
         }
         Insert: {
@@ -54,6 +24,8 @@ export type Database = {
           creator_id: string
           exchange_id: number
           id?: string
+          img_url?: string | null
+          item_title?: string | null
           participant_id: string
         }
         Update: {
@@ -61,6 +33,8 @@ export type Database = {
           creator_id?: string
           exchange_id?: number
           id?: string
+          img_url?: string | null
+          item_title?: string | null
           participant_id?: string
         }
         Relationships: [
@@ -200,6 +174,71 @@ export type Database = {
             foreignKeyName: "likes_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          chat_room_id: string
+          content: string
+          created_at: string | null
+          id: string
+          sender_id: string
+        }
+        Insert: {
+          chat_room_id: string
+          content: string
+          created_at?: string | null
+          id?: string
+          sender_id: string
+        }
+        Update: {
+          chat_room_id?: string
+          content?: string
+          created_at?: string | null
+          id?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_chat_room_id_fkey"
+            columns: ["chat_room_id"]
+            isOneToOne: false
+            referencedRelation: "chat_rooms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          id: string
+          nickname: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id: string
+          nickname?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          nickname?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
