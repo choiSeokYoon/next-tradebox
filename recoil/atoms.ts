@@ -3,7 +3,7 @@ import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist({
   key: "user",
-  storage: localStorage,
+  storage: typeof window !== "undefined" ? localStorage : undefined,
 });
 
 export const userInfoState = atom({

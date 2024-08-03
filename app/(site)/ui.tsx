@@ -10,11 +10,13 @@ import { userInfoState } from "recoil/atoms";
 export default function UI({session}) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState)
 
-  useEffect(() => {
-    if (session?.user) {
-      setUserInfo({ email: session.user.email, id: session.user.id, nickname: session.user.user_metadata.nickname});
-    }
-  }, [session]);
+ useEffect(() => {
+  if (session?.user) {
+    setUserInfo({ email: session.user.email, id: session.user.id, nickname: session.user.user_metadata.nickname });
+  } else {
+    setUserInfo(null);
+  }
+}, [session]);
 
  
   return (
