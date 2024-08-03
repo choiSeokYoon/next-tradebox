@@ -27,7 +27,7 @@ const ExchangeProduct = ({ product }) => {
         <div className="p-4">
           <h2 className="text-lg font-semibold text-gray-800 mb-2 truncate">{productTitle}</h2>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Exchange Item</span>
+            <span className="text-sm text-gray-600">{product.user_nickname}</span>
             <LikeToggle productId={productId} />
           </div>
         </div>

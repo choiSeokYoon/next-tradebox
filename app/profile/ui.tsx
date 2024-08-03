@@ -15,7 +15,7 @@ export default function ChangeNickname() {
   const handleChangeNickname = async () => {
     if (newNickname.length < 4 || newNickname.length > 10) {
       setResponseMessage("닉네임은 4자 이상 10자 이하로 입력해주세요.");
-      return;
+      return; 
     }
 
     const result = await createNickname(newNickname);
@@ -23,8 +23,6 @@ export default function ChangeNickname() {
       setUserInfo((prev) => ({ ...prev, nickname: newNickname }));
       setIsEditing(false);
       setResponseMessage("닉네임이 성공적으로 변경되었습니다.");
-    } else {
-      setResponseMessage(`오류 발생: ${result.error}`);
     }
   };
 

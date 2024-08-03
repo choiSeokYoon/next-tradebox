@@ -12,11 +12,9 @@ export default function UI({session}) {
 
   useEffect(() => {
     if (session?.user) {
-      setUserInfo({ email: session.user.email, id: session.user.id });
+      setUserInfo({ email: session.user.email, id: session.user.id, nickname: session.user.user_metadata.nickname});
     }
   }, [session]);
-  console.log(userInfo )
-
 
  
   return (

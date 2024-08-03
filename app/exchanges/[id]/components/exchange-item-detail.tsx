@@ -18,7 +18,9 @@ export default function ExchangeItemDetail({ exchangeProduct }) {
     createChatRoomMutation.mutate({
       productId: exchangeProduct.id,
       userId: exchangeProduct.user_uid,
-      title: exchangeProduct.title
+      title: exchangeProduct.title,
+      imgUrl : imageUrl,
+      nickname: exchangeProduct.user_nickname
     });
   };
 
@@ -26,7 +28,7 @@ export default function ExchangeItemDetail({ exchangeProduct }) {
     <div>
       <div className="flex items-center justify-center">
         <Image
-          src={imageUrl || "/images/image-not-found.png"}
+          src={imageUrl|| "/images/image-not-found.png"}
           alt="교환 물건 이미지"
           width={500}
           height={500}

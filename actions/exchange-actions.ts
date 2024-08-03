@@ -54,7 +54,7 @@ export async function createExchange(exchange: ExchangeRowInsert) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
+ 
   if (!user) {
     throw new Error("로그인 확인 필요");
   }
@@ -65,6 +65,7 @@ export async function createExchange(exchange: ExchangeRowInsert) {
       ...exchange,
       user_id: user.email,
       user_uid: user.id,
+      user_nickname: user.user_metadata.nickname,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     })
