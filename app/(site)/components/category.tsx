@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { CategoryType } from "types";
 
 export default function Category({ selectedCategory, onCategorySelect }) {
-  const categories = [
+  const categories: CategoryType[] = [
     { id: 0, name: "전체", img: "/images/category-all.jpg", category: null },
     { id: 1, name: "전자기기", img: "/images/category-electronics.jpg", category: "electronics" },
     { id: 2, name: "의류", img: "/images/category-clothing.jpg", category: "clothing" },
@@ -13,7 +14,7 @@ export default function Category({ selectedCategory, onCategorySelect }) {
     { id: 6, name: "게임", img: "/images/category-game.jpg", category: "game" },
   ];
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category: string | null) => {
     onCategorySelect(category);
   };
 

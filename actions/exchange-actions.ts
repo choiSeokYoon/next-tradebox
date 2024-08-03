@@ -18,7 +18,10 @@ function handleError(error) {
   throw null;
 }
 
-export async function fetchExchangesByCategoryAndSearch(category, searchInput) {
+export async function fetchExchangesByCategoryAndSearch(
+  category: string,
+  searchInput: string
+) {
   const supabase = await createServerSupabaseClient();
   let query = supabase
     .from("exchanges")
@@ -36,7 +39,6 @@ export async function fetchExchangesByCategoryAndSearch(category, searchInput) {
   const { data, error } = await query;
 
   if (error) {
-    console.error("Error fetching exchanges:", error);
     throw error;
   }
 
@@ -54,19 +56,6 @@ export async function fetchExchangeById(
     .single();
   if (error) throw error;
   return data;
-}
-
-export async function getExchangeByCategory(
-  category: string
-): Promise<ExchangeRow[]> {
-  const supabase = await createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from("exchanges")
-    .select("*, exchange_images(*)")
-    .eq("category", category);
-
-  if (error) throw error;
-  return data || [];
 }
 
 export async function createExchange(exchange: ExchangeRowInsert) {
