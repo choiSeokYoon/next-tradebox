@@ -1,11 +1,10 @@
-import { getChatRooms } from 'actions/chat-actions';
-import React from 'react'
+import UI from "./ui"
 
 export default function page() {
 
   return (
     <div>
-      
+      <UI/>
     </div>
   )
 }
