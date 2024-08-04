@@ -3,15 +3,14 @@ import Sidebar from "components/sidebar";
 
 export default function MainLayout({ children }) {
   return (
-    <main className="w-full h-screen flex flex-col">
+    <div className="w-full h-screen flex flex-col">
       <Header />
       <div className="flex flex-1">
         <Sidebar />
-        <div className="flex-1 bg-gray-100">
+        <main className="flex-1 bg-gray-100 pl-56">
         {children}
-        </div>
-      
+        </main>
       </div>
-    </main>
+    </div>
   );
 }
