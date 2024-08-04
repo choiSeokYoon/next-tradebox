@@ -32,6 +32,7 @@ export const useCreateChatRoom = () => {
       createChatRoom(productId, userId, title, imgUrl, nickname),
     onSuccess: () => {
       alert("채팅방이 성공적으로 생성되었습니다.");
+      router.push('/chat-list');
       queryClient.invalidateQueries({
         queryKey: ["get_chatItem"],
       });
