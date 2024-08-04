@@ -15,7 +15,7 @@ export default function ChangeNickname() {
   const handleChangeNickname = async () => {
     if (newNickname.length < 4 || newNickname.length > 10) {
       setResponseMessage("닉네임은 4자 이상 10자 이하로 입력해주세요.");
-      return; 
+      return;
     }
 
     const result = await createNickname(newNickname);
@@ -44,7 +44,10 @@ export default function ChangeNickname() {
               label="새 닉네임"
               type="text"
               placeholder="새 닉네임을 입력해주세요"
-              error={newNickname.length < 4 || newNickname.length > 10}
+              error={
+                (newNickname || "").length < 4 ||
+                (newNickname || "").length > 10
+              }
             />
             <div className="flex justify-end gap-5 mt-2">
               <Button className="mt-2" onClick={handleChangeNickname}>
@@ -72,4 +75,4 @@ export default function ChangeNickname() {
       </div>
     </div>
   );
-}
+}//압력을 주고 얼굴쪽으로 보내라 그상태로 콧소리를 내면 소리가 나오면서 광대로 간다. 
