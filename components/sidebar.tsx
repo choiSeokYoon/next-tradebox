@@ -1,17 +1,9 @@
 "use client";
-import {
-  AddBox,
-  Favorite,
-  Home,
-  Message,
-  Person,
-} from "@mui/icons-material";
+import { AddBox, Favorite, Home, Message, Person } from "@mui/icons-material";
 import Link from "next/link";
 import LogoutButton from "./logout-button";
 
-
 export default function Sidebar() {
-
   const links = [
     { href: "/", icon: <Home />, label: "홈" },
     { href: "/add-exchange-item", icon: <AddBox />, label: "교환 등록" },
@@ -21,7 +13,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-56 h-full flex flex-col justify-between p-6 border-r-2 border-gray-300">
+    <aside className="fixed w-56 h-full flex flex-col justify-between p-6">
       <nav className="flex flex-col gap-6">
         {links.map((link, index) => (
           <Link
@@ -38,10 +30,12 @@ export default function Sidebar() {
           </Link>
         ))}
       </nav>
-
+      <div className="pb-32">
       <LogoutButton>
-      <span>로그아웃</span>
+        <span>로그아웃</span>
       </LogoutButton>
+      </div>
+     
     </aside>
   );
 }
