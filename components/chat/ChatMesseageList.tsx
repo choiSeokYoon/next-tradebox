@@ -1,16 +1,7 @@
 import React from "react";
+import { ChatMessageListProps } from "types";
 
-interface Message {
-  id: string;
-  sender_id: string;
-  content: string;
-  created_at: string;
-}
 
-interface ChatMessageListProps {
-  messages: Message[];
-  currentUser: { id: string } | null;
-}
 
 export const ChatMessageList: React.FC<ChatMessageListProps> = ({
   messages,

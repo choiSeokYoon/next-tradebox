@@ -2,14 +2,9 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { createChatRoom, getChatRooms } from "actions/chat-actions";
 import { queryClient } from "config/ReactQueryClientPorvider";
 import { useRouter } from "next/navigation";
+import { CreateChatRoomInput } from "types";
 
-interface CreateChatRoomInput {
-  productId: number;
-  userId: string;
-  title: string;
-  imgUrl: string;
-  nickname: string;
-}
+
 
 export const useFetchChatList = () => {
   return useQuery({

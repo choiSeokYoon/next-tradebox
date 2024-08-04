@@ -7,7 +7,7 @@ export default function FileDragdropZone({ exchangeId }) {
   const fileRef = useRef(null);
   const uploadMutation = useUploadFile(exchangeId);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const file = fileRef.current?.files?.[0];
     if (file) {

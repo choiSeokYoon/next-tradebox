@@ -29,7 +29,7 @@ export default function UI() {
     setFileDragDropVisible(true);
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     createExchangeMutation.mutate({
       title,

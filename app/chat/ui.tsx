@@ -6,15 +6,11 @@ import { ChatMessageList } from "components/chat/ChatMesseageList";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { selectedChatRoomState } from "recoil/atoms";
+import { Message } from "types";
 import { createBrowserSupabaseClient } from "utils/supabase/client";
 
 
-interface Message {
-  id: string;
-  sender_id: string;
-  content: string;
-  created_at: string;
-}
+
 
 export default function UI() {
   const selectedChatRoom = useRecoilValue(selectedChatRoomState);
