@@ -20,4 +20,5 @@ export const searchState = atom({
 export const selectedChatRoomState = atom({
   key: "selectedChatRoomState",
   default: null,
+  effects_UNSTABLE: [persistAtom],
 });
