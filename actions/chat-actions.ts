@@ -20,7 +20,8 @@ export async function getChatRooms() {
   const { data, error } = await supabase
     .from("chat_rooms")
     .select("*")
-    .or(`creator_id.eq.${user.id},participant_id.eq.${user.id}`);
+    .or(`creator_id.eq.${user.id},participant_id.eq.${user.id}`)
+    .order("created_at", { ascending: false });
 
   if (error) throw error;
   return data;
@@ -55,6 +56,7 @@ export async function createChatRoom(
     .insert({
       exchange_id: exchangeId,
       creator_id: user.id,
+      creator_nickname: user.user_metadata.nickname,
       participant_id: participantId,
       item_title: title,
         user_nickname: nickname,
@@ -104,3 +106,6 @@ export async function getMessages(chatRoomId: string) {
     if (error) throw error;
     return data;
   }
+
+
+  

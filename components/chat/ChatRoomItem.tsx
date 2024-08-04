@@ -1,8 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "recoil/atoms";
 
 export default function ChatRoomItem({ room, onClick }) {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  
+  const displayedNickname = userInfo.id === room.participant_id 
+    ? room.creator_nickname 
+    : room.user_nickname;
+
   return (
     <li
       key={room.id}
@@ -21,7 +29,7 @@ export default function ChatRoomItem({ room, onClick }) {
           <p className="text-lg font-semibold text-gray-800 truncate">{room.item_title}</p>
           <p className="text-sm text-gray-500">3시간 전</p>
         </div>
-        <div className="text-gray-600">{room.user_nickname}</div>
+        <div className="text-gray-600">{displayedNickname}</div>
       </Link>
     </li>
   );
