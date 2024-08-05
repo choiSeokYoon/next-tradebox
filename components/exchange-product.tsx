@@ -1,20 +1,24 @@
-import React from 'react';
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import LikeToggle from './like-toggle';
-
+import LikeToggle from "./like-toggle";
 
 const ExchangeProduct = ({ product }) => {
-  const isLikedProduct = product.hasOwnProperty('exchange_id');
-  const imageUrl = isLikedProduct 
-    ? product.exchanges?.exchange_images?.[0]?.image_url 
+  const isLikedProduct = product.hasOwnProperty("exchange_id");
+  const imageUrl = isLikedProduct
+    ? product.exchanges?.exchange_images?.[0]?.image_url
     : product.exchange_images?.[0]?.image_url;
   const productId = isLikedProduct ? product.exchange_id : product.id;
-  const productTitle = isLikedProduct ? product.exchanges?.title : product.title;
+  const productTitle = isLikedProduct
+    ? product.exchanges?.title
+    : product.title;
 
+  const userNickname = isLikedProduct
+    ? product.exchanges?.user_nickname
+    : product.user_nickname;
   return (
-    <div className="bg-white pt-4 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-      <Link href={`/exchanges/${productId}`} className="block">
+    <div className="bg-white pt-4 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative">
+      <Link href={`/exchanges/${productId}`}>
         <div className="relative aspect-square">
           <Image
             src={imageUrl || "/images/image-not-found.png"}
@@ -25,13 +29,17 @@ const ExchangeProduct = ({ product }) => {
           />
         </div>
         <div className="p-4">
-          <h2 className="text-lg font-semibold text-gray-800 mb-2 truncate">{productTitle}</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-2 truncate">
+            {productTitle}
+          </h2>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">{product.user_nickname}</span>
-            <LikeToggle productId={productId} />
+            <span className="text-sm text-gray-600">{userNickname}</span>
           </div>
         </div>
       </Link>
+      <div className="absolute right-4 bottom-24">
+        <LikeToggle productId={productId} />
+      </div>
     </div>
   );
 };
