@@ -6,7 +6,7 @@ import { Button, Input } from "@material-tailwind/react";
 import { userInfoState } from "recoil/atoms";
 import { createNickname } from "actions/user-actions";
 
-export default function ChangeNickname() {
+export default function UI() {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [newNickname, setNewNickname] = useState("");
   const [isEditing, setIsEditing] = useState(false);

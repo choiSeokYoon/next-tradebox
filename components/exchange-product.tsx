@@ -23,7 +23,7 @@ const ExchangeProduct = ({ product }) => {
           <Image
             src={imageUrl || "/images/image-not-found.png"}
             alt={productTitle || "교환 물건 이미지"}
-            layout="fill"
+            fill
             objectFit="cover"
             className="transition-transform duration-300"
           />

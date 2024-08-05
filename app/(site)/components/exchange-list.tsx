@@ -3,7 +3,7 @@
 import { useState } from "react";
 import ExchangeProduct from "components/exchange-product";
 import { useFetchExchanges } from "hooks/query/useExchange";
-import Category from "./Category";
+import Category from "./category";
 
 export default function ExchangeList() {
   const [selectedCategory, setSelectedCategory] = useState(null);

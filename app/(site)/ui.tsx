@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Category from "./components/category";
 import ExchangeList from "./components/exchange-list";
 import { useRecoilState } from "recoil";
 import { userInfoState } from "recoil/atoms";
