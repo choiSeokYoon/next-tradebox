@@ -47,8 +47,8 @@ export default function LikeToggle({ productId }) {
   if (isLoading) return <Spinner />;
 
   return (
-    <div onClick={toggleLike} style={{ cursor: "pointer" }}>
-      {liked ? <Favorite color="error" /> : <FavoriteBorder />}
+    <div onClick={toggleLike} className="cursor-pointer">
+      {liked ? <Favorite color="warning" /> : <FavoriteBorder />}
     </div>
   );
 }

@@ -14,7 +14,7 @@ export default function ExchangeList() {
   };
 
   return (
-    <div>
+    <>
       <Category selectedCategory={selectedCategory} onCategorySelect={handleCategorySelect} />
       {exchangesQuery.isPending && <p>...loading</p>}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -23,6 +23,6 @@ export default function ExchangeList() {
             <ExchangeProduct key={product.id} product={product} />
           ))}
       </div>
-    </div>
+    </>
   );
 }

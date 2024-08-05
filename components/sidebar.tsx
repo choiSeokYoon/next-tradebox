@@ -12,8 +12,8 @@ export default function Sidebar() {
     { href: "/profile", icon: <Person />, label: "프로필" },
   ];
 
-  return (
-    <aside className="fixed w-56 h-full flex flex-col justify-between p-6">
+  const SidebarContent = () => (
+    <>
       <nav className="flex flex-col gap-6">
         {links.map((link, index) => (
           <Link
@@ -31,11 +31,32 @@ export default function Sidebar() {
         ))}
       </nav>
       <div className="pb-32">
-      <LogoutButton>
-        <span>로그아웃</span>
-      </LogoutButton>
+        <LogoutButton>
+          <span>로그아웃</span>
+        </LogoutButton>
       </div>
-     
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      <aside className="fixed w-56 h-full flex-col justify-between p-6 hidden lg:flex">
+        <SidebarContent />
+      </aside>
+      <aside className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-2 flex justify-around lg:hidden z-50">
+        {links.map((link, index) => (
+          <Link
+            key={index}
+            href={link.href}
+            className="flex flex-col items-center"
+          >
+            <div className="text-gray-600 hover:text-indigo-600 transition-colors text-xs">
+              {link.icon}
+            </div>
+            <span className="text-xs mt-1">{link.label}</span>
+          </Link>
+        ))}
+      </aside>
+    </>
   );
 }

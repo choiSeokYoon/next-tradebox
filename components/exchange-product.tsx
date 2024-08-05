@@ -17,7 +17,7 @@ const ExchangeProduct = ({ product }) => {
     ? product.exchanges?.user_nickname
     : product.user_nickname;
   return (
-    <div className="bg-white pt-4 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative">
+    <div className="bg-white rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative mt-4">
       <Link href={`/exchanges/${productId}`}>
         <div className="relative aspect-square">
           <Image
@@ -25,7 +25,7 @@ const ExchangeProduct = ({ product }) => {
             alt={productTitle || "교환 물건 이미지"}
             layout="fill"
             objectFit="cover"
-            className="transition-transform duration-300 hover:scale-105"
+            className="transition-transform duration-300"
           />
         </div>
         <div className="p-4">
