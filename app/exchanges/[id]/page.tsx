@@ -4,9 +4,9 @@ import UI from "./ui";
 export default async function ExchangeDetailPage({ params }) {
 
   return (
-    <main>
+    <section>
         <UI params={params} />
-    </main>
+    </section>
     
   );
 }

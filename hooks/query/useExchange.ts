@@ -40,13 +40,12 @@ export const useCreateExchange = (onSuccessCallback) => {
   });
 };
 
-export const useUpdateExchange = (onSuccessCallback) => {
+export const useUpdateExchange = (exchangeId) => {
   const router = useRouter();
   return useMutation({
     mutationFn: updateExchange,
-    onSuccess: (data) => {
-      router.push("/");
-      onSuccessCallback(data);
+    onSuccess: () => {
+      router.push(`/exchanges/${exchangeId}`);
       queryClient.invalidateQueries({
         queryKey: ["get_exchanges"],
       });

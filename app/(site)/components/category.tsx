@@ -23,19 +23,21 @@ export default function Category({ selectedCategory, onCategorySelect }) {
       {categories.map((category) => (
         <div
           key={category.id}
-          className={`flex flex-col items-center justify-center mx-2 cursor-pointer ${
-            selectedCategory === category.category ? "border-b-2 bg-orange-100" : ""
-          }`}
+          className="flex flex-col items-center justify-center mx-2 cursor-pointer"
           onClick={() => handleCategoryClick(category.category)}
         >
-          <Image
-            src={category.img}
-            alt={category.name}
-            width={200}
-            height={60}
-            className="rounded-full h-20 w-20 hover:scale-110 transition-transform duration-300"
-          />
-          <span className="mt-2 text-sm">{category.name}</span>
+          <div className={`flex flex-col items-center ${
+            selectedCategory === category.category ? "bg-orange-100 border-b-2" : ""
+          }`}>
+            <Image
+              src={category.img}
+              alt={category.name}
+              width={200}
+              height={60}
+              className="rounded-full h-20 w-20 hover:scale-110 transition-transform duration-300"
+            />
+            <span className="mt-2 text-sm">{category.name}</span>
+          </div>
         </div>
       ))}
     </div>

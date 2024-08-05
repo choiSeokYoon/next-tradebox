@@ -75,4 +75,4 @@ export default function ChangeNickname() {
       </div>
     </div>
   );
-}//압력을 주고 얼굴쪽으로 보내라 그상태로 콧소리를 내면 소리가 나오면서 광대로 간다. 
+} 

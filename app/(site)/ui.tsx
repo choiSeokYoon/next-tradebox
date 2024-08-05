@@ -20,10 +20,8 @@ export default function UI({session}) {
 
  
   return (
-    <div className="w-full">
-      <div className="p-10">
+    <section className="w-full p-10">
         <ExchangeList/>
-      </div>
-    </div>
+    </section>
   );
 }

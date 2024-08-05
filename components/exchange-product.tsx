@@ -13,7 +13,7 @@ const ExchangeProduct = ({ product }) => {
   const productTitle = isLikedProduct ? product.exchanges?.title : product.title;
 
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div className="bg-white pt-4 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       <Link href={`/exchanges/${productId}`} className="block">
         <div className="relative aspect-square">
           <Image

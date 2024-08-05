@@ -40,7 +40,6 @@ export default function ChatRoomList() {
 
   if (isLoading) return <Loading />;
   if (isError) return <ErrorMessage />;
-  console.log(chatRooms)
   return (
     <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg border border-gray-200 mt-4">
       <h1 className="text-2xl font-bold p-4 border-b bg-orange-100 text-center">내 채팅방</h1>

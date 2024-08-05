@@ -8,21 +8,12 @@ import FormField from "components/form-field";
 export default function UI() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [itemCondition, setItemCondition] = useState("");
+  const [itemCondition, setItemCondition] = useState("GOOD");
   const [location, setLocation] = useState("");
   const [category, setCategory] = useState("");
   const [trade, setTrade] = useState("");
   const [fileDragDropVisible, setFileDragDropVisible] = useState(false);
   const [exchangeId, setExchangeId] = useState(null);
-
-  const categories = [
-    { value: "electronics", label: "전자기기" },
-    { value: "clothing", label: "의류" },
-    { value: "furniture", label: "가구" },
-    { value: "game", label: "게임" },
-    { value: "book", label: "책" },
-    { value: "sport", label: "스포츠" },
-  ];
 
   const createExchangeMutation = useCreateExchange((data) => {
     setExchangeId(data);
@@ -43,7 +34,7 @@ export default function UI() {
   };
 
   return (
-    <div className="p-10">
+    <section className="p-10">
       {fileDragDropVisible ? (
         <FileDragdropZone exchangeId={exchangeId} />
       ) : (
@@ -58,7 +49,6 @@ export default function UI() {
             location={location}
             category={category}
             trade={trade}
-            categories={categories}
             setTitle={setTitle}
             setDescription={setDescription}
             setItemCondition={setItemCondition}
@@ -75,6 +65,6 @@ export default function UI() {
           </button>
         </form>
       )}
-    </div>
+    </section>
   );
 }

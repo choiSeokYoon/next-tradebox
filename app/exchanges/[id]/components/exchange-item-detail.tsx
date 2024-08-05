@@ -1,93 +1,146 @@
 "use client";
+import { useState } from "react";
 import { Spinner } from "@material-tailwind/react";
 import { useRecoilValue } from "recoil";
 import { userInfoState } from "recoil/atoms";
-
 import Image from "next/image";
 import Link from "next/link";
 import { useDeleteExchange } from "hooks/query/useExchange";
 import { useCreateChatRoom } from "hooks/query/useChat";
+import { Update, Delete, Chat } from "@mui/icons-material";
+import {
+  categoriesOptions,
+  itemConditionOptions,
+} from "utils/constants/constants";
 
 export default function ExchangeItemDetail({ exchangeProduct }) {
   const userInfo = useRecoilValue(userInfoState);
   const deleteExchangeMutation = useDeleteExchange(exchangeProduct.id);
   const createChatRoomMutation = useCreateChatRoom();
-  const imageUrl = exchangeProduct.exchange_images?.[0]?.image_url;
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = exchangeProduct.exchange_images || [];
 
   const startChat = () => {
     createChatRoomMutation.mutate({
       productId: exchangeProduct.id,
       userId: exchangeProduct.user_uid,
       title: exchangeProduct.title,
-      imgUrl : imageUrl,
-      nickname: exchangeProduct.user_nickname
+      imgUrl: images[0]?.image_url,
+      nickname: exchangeProduct.user_nickname,
     });
   };
 
-  return (
-    <div>
-      <div className="flex items-center justify-center">
-        <Image
-          src={imageUrl|| "/images/image-not-found.png"}
-          alt="교환 물건 이미지"
-          width={500}
-          height={500}
-          className="rounded-lg"
-        />
-      </div>
+  function getItemConditionLabel(value) {
+    const condition = itemConditionOptions.find(
+      (option) => option.value === value
+    );
+    return condition ? condition.label : value;
+  }
 
-      <ul className="space-y-2 pt-10">
-        <li className="text-lg font-semibold text-gray-800">
-          {exchangeProduct.title}
-        </li>
-        <li className="text-gray-600">
-          <p>{exchangeProduct.created_at}</p>
-          <p>{exchangeProduct.location}</p>
-        </li>
-        <li className="text-gray-600">{exchangeProduct.category}</li>
-        <li className="text-gray-600">{exchangeProduct.item_condition}</li>
-        <li>
-          <div
-            className="w-full h-48 overflow-y-auto p-4"
-            style={{
-              overflowWrap: "break-word",
-              wordWrap: "break-word",
-              wordBreak: "break-word",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {exchangeProduct.description}
+  function getCategoriesLabel(value) {
+    const categories = categoriesOptions.find(
+      (option) => option.value === value
+    );
+    return categories ? categories.label : value;
+  }
+
+  return (
+    <div className=" bg-white">
+      <div className="flex flex-col lg:flex-row">
+        <div className="relative w-full h-96 lg:w-2/3 lg:h-[600px]">
+          <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
+          {images.length > 0 ? (
+            <Image
+              src={images[currentImageIndex].image_url}
+              alt={`교환 물건 이미지 ${currentImageIndex + 1}`}
+              layout="fill"
+              objectFit="lg:contain"
+              className="rounded-lg lg:rounded-l-lg"
+            />
+          ) : (
+            <Image
+              src="/images/image-not-found.png"
+              alt="이미지 없음"
+              layout="fill"
+              objectFit="lg:contain"
+              className="rounded-lg lg:rounded-l-lg"
+            />
+          )}
+          {images.length > 1 && (
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-3 h-3 rounded-full ${
+                    index === currentImageIndex ? "bg-white" : "bg-gray-300"
+                  }`}
+                  onClick={() => setCurrentImageIndex(index)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="lg:w-1/3 p-6 flex flex-col justify-between">
+          <div>
+            <div className="flex justify-between items-center mb-4 relative">
+              <h1 className="text-2xl font-bold text-gray-800">
+                {exchangeProduct.title}
+              </h1>
+              <span className="text-sm text-gray-500 absolute -top-4 right-0">
+                {new Date(exchangeProduct.created_at).toLocaleDateString()}
+              </span>
+            </div>
+            <p className="text-xl font-semibold text-orange-500 mb-4">
+              교환 희망: {exchangeProduct.trade}
+            </p>
+            <div className="space-y-2 text-sm text-gray-600 mb-6">
+              <p>👤 {exchangeProduct.user_nickname}</p>
+              <p>🏠 {exchangeProduct.location}</p>
+              <p>📁 {getCategoriesLabel(exchangeProduct.category)}</p>
+              <p>👍 {getItemConditionLabel(exchangeProduct.item_condition)}</p>
+            </div>
+            <div className="mb-6 p-4 bg-gray-50 rounded-lg text-gray-700 max-h-40 overflow-y-auto">
+              {exchangeProduct.description}
+            </div>
           </div>
-        </li>
-      </ul>
-      <div className="flex space-x-4 pt-4 justify-end">
-        {userInfo.email === exchangeProduct.user_id ? (
-          <>
-            <Link href={`/exchanges/${exchangeProduct.id}/edit`}>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded">
-                업데이트
+          <div className="mt-6">
+            {userInfo.email === exchangeProduct.user_id ? (
+              <div className="flex space-x-4">
+                <Link
+                  href={`/exchanges/${exchangeProduct.id}/edit`}
+                  className="flex-1"
+                >
+                  <button className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-colors flex items-center justify-center text-sm">
+                    <Update className="mr-2" />
+                    수정하기
+                  </button>
+                </Link>
+                <button
+                  className="flex-1 bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition-colors flex items-center justify-center text-sm"
+                  onClick={() => deleteExchangeMutation.mutate()}
+                >
+                  {deleteExchangeMutation.isPending ? (
+                    <Spinner />
+                  ) : (
+                    <>
+                      <Delete className="mr-2" />
+                      삭제하기
+                    </>
+                  )}
+                </button>
+              </div>
+            ) : (
+              <button
+                className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-colors flex items-center justify-center"
+                onClick={startChat}
+                disabled={createChatRoomMutation.isPending}
+              >
+                <Chat className="mr-2" />
+                채팅하기
               </button>
-            </Link>
-            <button
-              className="bg-red-500 text-white px-4 py-2 rounded"
-              onClick={() => deleteExchangeMutation.mutate()}
-            >
-              {deleteExchangeMutation.isPending ? (
-                <Spinner />
-              ) : (
-                <span>삭제</span>
-              )}
-            </button>
-          </>
-        ) : (
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-            onClick={startChat}
-            disabled={createChatRoomMutation.isPending}
-          >
-            채팅하기
-          </button>
-        )}
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
