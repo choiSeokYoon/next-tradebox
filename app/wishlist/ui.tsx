@@ -1,6 +1,6 @@
 "use client";
 import ExchangeProduct from "components/exchange-product";
-import Loading from "components/loading";
+import Loading from "../../components/loading";
 import { useFetchLikes } from "hooks/query/useWishlist";
 import React from "react";
 import { useRecoilValue } from "recoil";

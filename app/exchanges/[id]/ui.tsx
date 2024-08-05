@@ -3,7 +3,7 @@
 import { Spinner } from "@material-tailwind/react";
 import ExchangeItemDetail from "./components/exchange-item-detail";
 import { useFetchExchangeItam } from "hooks/query/useExchange";
-import Loading from "components/loading";
+import Loading from "../../../components/loading";
 
 export default function UI({ params }) {
   const exchangeItemQuery = useFetchExchangeItam(params);

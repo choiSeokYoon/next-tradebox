@@ -6,7 +6,7 @@ import { createBrowserSupabaseClient } from "utils/supabase/client";
 import { useFetchChatList } from "hooks/query/useChat";
 import ChatRoomItem from "components/chat/ChatRoomItem";
 import ErrorMessage from "components/ErrorMessage";
-import Loading from "components/loading";
+import Loading from "../../components/loading";
 
 export default function ChatRoomList() {
   const { data: chatRooms, isLoading, isError, refetch } = useFetchChatList();
