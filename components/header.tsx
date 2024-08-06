@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { searchState } from "recoil/atoms";
 
@@ -13,7 +12,7 @@ export default function Header() {
       <Link href={"/"} className="text-xl font-bold mr-auto">
         TradeBox
       </Link>
-      <div className="flex-grow flex justify-center">
+      <div className="flex-grow flex justify-center ml-1">
         <div className="border w-full max-w-[600px] border-white rounded-md p-2 flex gap-2 items-center relative">
           <i className="fas fa-search absolute left-3 text-gray-500"></i>
           <input

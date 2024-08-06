@@ -51,9 +51,9 @@ export default function Category({ selectedCategory, onCategorySelect }) {
           <Image
             src={category.img}
             alt={category.name}
-            width={200}
-            height={60}
-            style={{ width: 200, height: 60 }}
+            width={80}
+            height={80}
+            style={{ width: 80, height: 80 }}
             className="rounded-full h-16 w-16 sm:h-20 sm:w-20 hover:scale-110 transition-transform duration-300"
           />
           <span className="mt-2 text-sm">{category.name}</span>

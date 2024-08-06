@@ -43,7 +43,7 @@ export default function Sidebar() {
       <aside className="fixed w-56 h-full flex-col justify-between p-6 hidden lg:flex">
         <SidebarContent />
       </aside>
-      <aside className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-2 flex justify-around lg:hidden z-50">
+      <aside className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-2 flex justify-around lg:hidden z-40">
         {links.map((link, index) => (
           <Link
             key={index}
