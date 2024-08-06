@@ -1,6 +1,5 @@
 "use client";
 import ExchangeProduct from "components/exchange-product";
-import Loading from "../../components/loading";
 import { useFetchLikes } from "hooks/query/useWishlist";
 import React from "react";
 import { useRecoilValue } from "recoil";
@@ -12,7 +11,7 @@ export default function UI() {
 
   return (
     <section className="p-10">
-      {likesQuery.isPending && <Loading/>}
+      {likesQuery.isPending && <p className="text-center text-gray-600 py-4">로딩 중...</p>}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {likesQuery.data &&
           likesQuery.data.map((product) => (

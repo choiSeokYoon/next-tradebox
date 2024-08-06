@@ -5,11 +5,9 @@ import { selectedChatRoomState } from "recoil/atoms";
 import { createBrowserSupabaseClient } from "utils/supabase/client";
 import { useFetchChatList } from "hooks/query/useChat";
 import ChatRoomItem from "components/chat/ChatRoomItem";
-import ErrorMessage from "components/ErrorMessage";
-import Loading from "../../components/loading";
 
 export default function ChatRoomList() {
-  const { data: chatRooms, isLoading, isError, refetch } = useFetchChatList();
+  const { data: chatRooms, isPending, error, refetch } = useFetchChatList();
   const setSelectedChatRoom = useSetRecoilState(selectedChatRoomState);
   const supabase = createBrowserSupabaseClient();
 
@@ -38,8 +36,8 @@ export default function ChatRoomList() {
     setSelectedChatRoom(chatRoom);
   };
 
-  if (isLoading) return <Loading />;
-  if (isError) return <ErrorMessage />;
+  if (isPending) return  <p className="text-center text-gray-600 py-4">로딩 중...</p>;
+  if (error) return <p>에러가 발생했습니다: {error.message}</p>;
   return (
     <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg border border-gray-200 mt-4">
       <h1 className="text-2xl font-bold p-4 border-b bg-orange-100 text-center">내 채팅방</h1>

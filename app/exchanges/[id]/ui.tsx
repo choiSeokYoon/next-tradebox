@@ -1,17 +1,15 @@
 "use client";
 
-import { Spinner } from "@material-tailwind/react";
 import ExchangeItemDetail from "./components/exchange-item-detail";
 import { useFetchExchangeItam } from "hooks/query/useExchange";
-import Loading from "../../../components/loading";
 
 export default function UI({ params }) {
   const exchangeItemQuery = useFetchExchangeItam(params);
 
-  const { data: exchangeProduct, isLoading, error } = exchangeItemQuery;
+  const { data: exchangeProduct, isPending, error } = exchangeItemQuery;
 
-  if (isLoading) return <Loading/>
-  if (error) return <div>에러가 발생했습니다: {error.message}</div>;
+  if (isPending) return <p className="text-center text-gray-600 py-4">로딩 중...</p>
+  if (error) return <p>에러가 발생했습니다: {error.message}</p>;
 
   if (!exchangeProduct) return <div>교환 상품을 찾을 수 없습니다.</div>;
 
