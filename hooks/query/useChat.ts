@@ -1,10 +1,12 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { createChatRoom, getChatRooms } from "actions/chat-actions";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  createChatRoom,
+  deleteChatRoom,
+  getChatRooms,
+} from "actions/chat-actions";
 import { queryClient } from "config/ReactQueryClientPorvider";
 import { useRouter } from "next/navigation";
 import { CreateChatRoomInput } from "types";
-
-
 
 export const useFetchChatList = () => {
   return useQuery({
@@ -12,7 +14,6 @@ export const useFetchChatList = () => {
     queryFn: () => getChatRooms(),
   });
 };
-
 
 export const useCreateChatRoom = () => {
   const router = useRouter();
@@ -41,5 +42,11 @@ export const useCreateChatRoom = () => {
         alert("채팅방 생성에 실패했습니다.");
       }
     },
+  });
+};
+
+export const useDeleteChatRoom = (id, creatorId) => {
+  return useMutation({
+    mutationFn: () => deleteChatRoom(id, creatorId),
   });
 };
