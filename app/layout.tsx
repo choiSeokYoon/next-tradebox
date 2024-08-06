@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "config/material-tailwind-theme-provider";
+import { ThemeProvider } from "config/MaterialTailwindThemeProvider";
 import MainLayout from "components/auth/layouts/main-layout";
 import Auth from "components/auth";
 import ReocilProvider from "config/ReocilPorvider";
 import ReactQueryClientProvider from "config/ReactQueryClientPorvider";
 import { createServerSupabaseClient } from "utils/supabase/server";
-import AuthProvider from "config/auth-provider";
+import AuthProvider from "config/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
