@@ -77,7 +77,7 @@ export default function UI() {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full pb-16">
       <ChatMessageList messages={messages} currentUser={currentUser} />
       <ChatMessageInput onSendMessage={handleSendMessage} />
     </div>

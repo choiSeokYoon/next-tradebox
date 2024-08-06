@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { ChatMessageListProps } from "types";
-
-
 
 export const ChatMessageList: React.FC<ChatMessageListProps> = ({
   messages,
   currentUser,
 }) => {
+  const bottomRef = useRef(null);
+
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   return (
-    <div className="flex flex-col h-full bg-gray-100 p-4 space-y-4">
+    <div className="flex flex-col h-full bg-gray-100 p-4 space-y-4 overflow-auto">
       {messages.map((message) => (
         <div
           key={message.id}
@@ -24,6 +30,7 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
                 ? "bg-white text-black border border-gray-300"
                 : "bg-orange-200 text-black border border-gray-300"
             }`}
+            style={{ wordBreak: "break-word" }}
           >
             <p className="text-sm">{message.content}</p>
             <div
@@ -38,6 +45,7 @@ export const ChatMessageList: React.FC<ChatMessageListProps> = ({
           </div>
         </div>
       ))}
+      <div ref={bottomRef} />
     </div>
   );
 };
