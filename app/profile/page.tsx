@@ -1,4 +1,4 @@
-import React from 'react'
+
 import UI from './ui'
 
 export default function ProfilePage() {

@@ -20,7 +20,8 @@ function handleError(error) {
 
 export async function fetchExchangesByCategoryAndSearch(
   category: string,
-  searchInput: string
+  searchInput: string,
+  userId?: string
 ) {
   const supabase = await createServerSupabaseClient();
   let query = supabase
@@ -34,6 +35,10 @@ export async function fetchExchangesByCategoryAndSearch(
 
   if (searchInput) {
     query = query.ilike("title", `%${searchInput}%`);
+  }
+
+  if (userId) {
+    query = query.eq("user_uid", userId);
   }
 
   const { data, error } = await query;
