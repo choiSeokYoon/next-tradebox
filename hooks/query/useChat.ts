@@ -6,7 +6,7 @@ import {
 } from "actions/chat-actions";
 import { queryClient } from "config/ReactQueryClientPorvider";
 import { useRouter } from "next/navigation";
-import { CreateChatRoomInput } from "types";
+import { CreateChatRoomInputType } from "types";
 
 export const useFetchChatList = () => {
   return useQuery({
@@ -24,7 +24,7 @@ export const useCreateChatRoom = () => {
       title,
       imgUrl,
       nickname,
-    }: CreateChatRoomInput) =>
+    }: CreateChatRoomInputType) =>
       createChatRoom(productId, userId, title, imgUrl, nickname),
     onSuccess: () => {
       alert("채팅방이 성공적으로 생성되었습니다.");
