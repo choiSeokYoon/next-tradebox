@@ -1,5 +1,4 @@
-"use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Spinner } from "@material-tailwind/react";
 import { useRecoilValue } from "recoil";
 import { userInfoState } from "recoil/atoms";
@@ -45,16 +44,16 @@ export default function ExchangeItemDetail({ exchangeProduct }) {
   }
 
   return (
-    <div className=" bg-white">
+    <div className="bg-white">
       <div className="flex flex-col lg:flex-row">
-        <div className="relative w-full h-96 lg:w-2/3 lg:h-[600px]">
+        <div className="relative w-full lg:w-1/2 h-[350px]">
           <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
           {images.length > 0 ? (
             <Image
               src={images[currentImageIndex].image_url}
               alt={`교환 물건 이미지 ${currentImageIndex + 1}`}
               layout="fill"
-              objectFit="lg:contain"
+              objectFit="cover"
               className="rounded-lg lg:rounded-l-lg"
             />
           ) : (
@@ -62,7 +61,7 @@ export default function ExchangeItemDetail({ exchangeProduct }) {
               src="/images/image-not-found.png"
               alt="이미지 없음"
               layout="fill"
-              objectFit="lg:contain"
+              objectFit="cover"
               className="rounded-lg lg:rounded-l-lg"
             />
           )}
@@ -80,30 +79,25 @@ export default function ExchangeItemDetail({ exchangeProduct }) {
             </div>
           )}
         </div>
-        <div className="lg:w-1/3 p-6 flex flex-col justify-between">
-          <div>
-            <div className="flex justify-between items-center mb-4 relative">
-              <h1 className="text-2xl font-bold text-gray-800">
-                {exchangeProduct.title}
-              </h1>
-              <span className="text-sm text-gray-500 absolute -top-4 right-0">
-                {new Date(exchangeProduct.created_at).toLocaleDateString()}
-              </span>
-            </div>
-            <p className="text-xl font-semibold text-orange-500 mb-4">
-              교환 희망: {exchangeProduct.trade}
-            </p>
-            <div className="space-y-2 text-sm text-gray-600 mb-6">
-              <p>👤 {exchangeProduct.user_nickname}</p>
-              <p>🏠 {exchangeProduct.location}</p>
-              <p>📁 {getCategoriesLabel(exchangeProduct.category)}</p>
-              <p>👍 {getItemConditionLabel(exchangeProduct.item_condition)}</p>
-            </div>
-            <div className="mb-6 p-4 bg-gray-50 rounded-lg text-gray-700 max-h-40 overflow-y-auto">
-              {exchangeProduct.description}
-            </div>
+        <div className="lg:w-1/2 p-6 flex flex-col">
+          <div className="mb-4 relative">
+            <h1 className="text-2xl font-bold text-gray-800">
+              {exchangeProduct.title}
+            </h1>
+            <span className="text-sm text-gray-500 absolute top-0 right-0">
+              {new Date(exchangeProduct.created_at).toLocaleDateString()}
+            </span>
           </div>
-          <div className="mt-6">
+          <p className="text-xl font-semibold text-orange-500 mb-4">
+            교환하고 싶은 아이템: {exchangeProduct.trade}
+          </p>
+          <div className="space-y-2 text-sm text-gray-600 mb-6">
+            <p>👤 {exchangeProduct.user_nickname}</p>
+            <p>🏠 {exchangeProduct.location}</p>
+            <p>📁 {getCategoriesLabel(exchangeProduct.category)}</p>
+            <p>📦 {getItemConditionLabel(exchangeProduct.item_condition)}</p>
+          </div>
+          <div className="mt-auto">
             {userInfo.email === exchangeProduct.user_id ? (
               <div className="flex space-x-4">
                 <Link
@@ -141,6 +135,12 @@ export default function ExchangeItemDetail({ exchangeProduct }) {
             )}
           </div>
         </div>
+      </div>
+      <div className="p-6 bg-gray-50 rounded-lg mt-6">
+        <h2 className="text-lg font-semibold mb-3">상세 설명</h2>
+        <p className="text-gray-700 whitespace-pre-wrap">
+          {exchangeProduct.description}
+        </p>
       </div>
     </div>
   );
