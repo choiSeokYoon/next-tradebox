@@ -1,31 +1,37 @@
 "use client";
 
 import { Button, Input } from "@material-tailwind/react";
-import { useMutation } from "@tanstack/react-query";
+import { useSignIn } from "hooks/query/useAuth";
 import { useState } from "react";
-import { createBrowserSupabaseClient } from "utils/supabase/client";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "recoil/atoms";
+
 
 export default function Signin({ setView }) {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const supabase = createBrowserSupabaseClient();
+  const signInMutation = useSignIn();
 
-  const signInMutation = useMutation({
-    mutationFn: async () => {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (data) {
-        console.log(data);
+  const handleSignIn = () => {
+    signInMutation.mutate(
+      { email, password },
+      {
+        onSuccess: (data) => {
+          setUserInfo({
+            email: data.user.email,
+            id: data.user.id,
+            nickname: data.user.user_metadata.nickname,
+          });
+        },
+        onError: (error) => {
+          alert(error.message);
+        },
       }
-      if (error) {
-        //TODO 알림창 라이브러리 활용
-        alert(error.message);
-      }
-    },
-  });
+    );
+  };
+
   return (
     <div className="flex flex-col w-96">
       <div className="pt-8 pb-6 px-10 w-full flex flex-col items-center justify-center max-w-3xl bg-white gap-2 rounded-lg">
@@ -46,9 +52,7 @@ export default function Signin({ setView }) {
         />
         <Button
           className="mt-2"
-          onClick={() => {
-            signInMutation.mutate();
-          }}
+          onClick={handleSignIn}
           disabled={signInMutation.isPending}
           loading={signInMutation.isPending}
         >
@@ -56,7 +60,7 @@ export default function Signin({ setView }) {
         </Button>
       </div>
       <div className="text-end mt-4 pr-1">
-        계정이 있으신가요 ?{" "}
+        계정이 없으신가요 ?{" "}
         <button
           className="text-light-blue-600 font-bold"
           onClick={() => setView("SIGNUP")}

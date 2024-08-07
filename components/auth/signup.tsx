@@ -1,81 +1,58 @@
 "use client";
 
 import { Button, Input } from "@material-tailwind/react";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { createBrowserSupabaseClient } from "utils/supabase/client";
+import { useSignUp, useVerifyOtp } from "hooks/query/useAuth";
+import { useState } from "react";
 
 export default function SignUp({ setView }) {
   const [email, setEmail] = useState("");
+  const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [otp, setOtp] = useState("");
-  const [nickname, setNickname] = useState("");
   const [confirmationRequired, setConfirmationRequired] = useState(false);
-  const [isOtpVerified, setIsOtpVerified] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
+  const [nicknameError, setNicknameError] = useState("");
 
-  const supabase = createBrowserSupabaseClient();
+  const signUpMutation = useSignUp();
+  const verifyOtpMutation = useVerifyOtp();
 
-  const router = useRouter()
-
-  useEffect(() => {
-    if (isOtpVerified) {
-      const nicknameInput = document.getElementById('nickname-input');
-      if (nicknameInput) nicknameInput.focus();
+  const validateNickname = (value) => {
+    if (value.length < 4 || value.length > 10) {
+      setNicknameError("닉네임은 4자 이상 10자 이하로 입력해주세요.");
+      return false;
     }
-  }, [isOtpVerified]);
+    setNicknameError("");
+    return true;
+  };
 
-  const signupMutation = useMutation({
-    mutationFn: async () => {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-      if (data) {
-        setConfirmationRequired(true);
-      }
-      if (error) {
-        alert(error.message);
-      }
-    },
-  });
+  const handleSignUp = () => {
+    if (!validateNickname(nickname)) return;
 
-  const verifyOtpMutation = useMutation({
-    mutationFn: async () => {
-      const { data, error } = await supabase.auth.verifyOtp({
-        type: "signup",
-        email,
-        token: otp,
-      });
-      if (error) {
-        alert(error.message);
-      } else {
-        setIsOtpVerified(true);
+    signUpMutation.mutate(
+      { email, password, nickname },
+      {
+        onSuccess: () => {
+          setConfirmationRequired(true);
+        },
+        onError: (error) => {
+          alert(error.message);
+        },
       }
-    },
-  });
+    );
+  };
 
-  const setNicknameMutation = useMutation({
-    mutationFn: async () => {
-      const { data, error } = await supabase.auth.updateUser({
-        data: { nickname: nickname },
-      });
-      if (error) {
-        alert(error.message);
-      } else {
-        alert("닉네임이 성공적으로 설정되었습니다.");
-        router.push('/')
+  const handleVerifyOtp = () => {
+    verifyOtpMutation.mutate(
+      { email, otp },
+      {
+        onSuccess: () => {
+          alert("회원가입이 완료되었습니다.");
+          setView("SIGNIN");
+        },
+        onError: (error) => {
+          alert(error.message);
+        },
       }
-    },
-  });
-
-  const handleNicknameSubmit = () => {
-    if (nickname.length < 4 || nickname.length > 10) {
-      setResponseMessage("닉네임은 4자 이상 10자 이하로 입력해주세요.");
-      return;
-    }
-    setNicknameMutation.mutate();
+    );
   };
 
   return (
@@ -84,41 +61,7 @@ export default function SignUp({ setView }) {
         <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">
           회원가입
         </h2>
-        {isOtpVerified ? (
-          <>
-            <Input
-              id="nickname-input"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              label="닉네임"
-              type="text"
-              className="w-full rounded-sm"
-              placeholder="닉네임을 입력해주세요"
-            />
-            <div className="flex gap-2">
-              <Button
-                className="mt-2"
-                onClick={handleNicknameSubmit}
-                loading={setNicknameMutation.isPending}
-                disabled={setNicknameMutation.isPending}
-              >
-                닉네임 설정
-              </Button>
-              <Button
-                className="mt-2"
-                onClick={() => {
-                  setNickname(""); // 취소할 경우 닉네임 입력 초기화
-                  setResponseMessage(""); // 메시지 초기화
-                }}
-              >
-                취소
-              </Button>
-            </div>
-            {responseMessage && (
-              <p className="mt-2 text-center text-red-500">{responseMessage}</p>
-            )}
-          </>
-        ) : confirmationRequired ? (
+        {confirmationRequired ? (
           <Input
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
@@ -129,6 +72,16 @@ export default function SignUp({ setView }) {
           />
         ) : (
           <>
+            <Input
+              value={nickname}
+              onChange={(e) => {
+                setNickname(e.target.value);
+                validateNickname(e.target.value);
+              }}
+              label="nickname"
+              type="text"
+              error={nicknameError !== ""}
+            />
             <Input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -143,31 +96,28 @@ export default function SignUp({ setView }) {
             />
           </>
         )}
-
-        {!isOtpVerified && (
-          <Button
-            className="mt-2"
-            onClick={() => {
-              if (confirmationRequired) {
-                verifyOtpMutation.mutate();
-              } else {
-                signupMutation.mutate();
-              }
-            }}
-            loading={
-              confirmationRequired
-                ? verifyOtpMutation.isPending
-                : signupMutation.isPending
+        <Button
+          className="mt-2"
+          onClick={() => {
+            if (confirmationRequired) {
+              handleVerifyOtp();
+            } else {
+              handleSignUp();
             }
-            disabled={
-              confirmationRequired
-                ? verifyOtpMutation.isPending
-                : signupMutation.isPending
-            }
-          >
-            {confirmationRequired ? "인증하기" : "가입하기"}
-          </Button>
-        )}
+          }}
+          loading={
+            confirmationRequired
+              ? verifyOtpMutation.isPending
+              : signUpMutation.isPending
+          }
+          disabled={
+            confirmationRequired
+              ? verifyOtpMutation.isPending
+              : signUpMutation.isPending
+          }
+        >
+          {confirmationRequired ? "인증하기" : "가입하기"}
+        </Button>
       </div>
       <div className="text-end mt-4 pr-1">
         계정이 있으신가요 ?{" "}
