@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { UploadFile } from "actions/storageActions";
+import { UploadFile } from "actions/storage-actions";
 import { useRouter } from "next/navigation";
 
 export const useUploadFile = (exchangeId) => {

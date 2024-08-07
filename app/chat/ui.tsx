@@ -6,7 +6,7 @@ import { ChatMessageList } from "components/chat/ChatMesseageList";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { selectedChatRoomState } from "recoil/atoms";
-import { Message } from "types";
+import { MessageType } from "types";
 import { createBrowserSupabaseClient } from "utils/supabase/client";
 
 
@@ -14,7 +14,7 @@ import { createBrowserSupabaseClient } from "utils/supabase/client";
 
 export default function UI() {
   const selectedChatRoom = useRecoilValue(selectedChatRoomState);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<MessageType[]>([]);
   const [currentUser, setCurrentUser] = useState(null);
   const supabase = createBrowserSupabaseClient();
   
@@ -39,7 +39,7 @@ export default function UI() {
         (payload) => {
           setMessages((prevMessages) => [
             ...prevMessages,
-            payload.new as Message,
+            payload.new as MessageType,
           ]);
         }
       )
