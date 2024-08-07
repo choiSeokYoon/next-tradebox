@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Jua } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "config/MaterialTailwindThemeProvider";
 import MainLayout from "components/auth/layouts/main-layout";
@@ -9,7 +9,8 @@ import ReactQueryClientProvider from "config/ReactQueryClientPorvider";
 import { createServerSupabaseClient } from "utils/supabase/server";
 import AuthProvider from "config/AuthProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+
+const jua = Jua({ subsets: ["latin"], weight: ["400"] });
 
 export const metadata: Metadata = {
   title: "TradeBox",
@@ -38,7 +39,7 @@ export default async function RootLayout({ children }) {
               />
             </head>
             <AuthProvider accessToken={session?.access_token}>
-              <body className={inter.className}>
+              <body className={jua.className}>
                 {session?.user ? <MainLayout>{children}</MainLayout> : <Auth />}
               </body>
             </AuthProvider>
