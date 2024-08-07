@@ -1,37 +1,60 @@
 "use client";
 
-import Image from "next/image";
+import {
+  Category as CategoryIcon,
+  Devices,
+  Checkroom,
+  MenuBook,
+  Chair,
+  SportsBasketball,
+  SportsEsports,
+} from "@mui/icons-material";
 import { CategoryType } from "types";
 
 export default function Category({ selectedCategory, onCategorySelect }) {
   const categories: CategoryType[] = [
-    { id: 0, name: "전체", img: "/images/category-all.jpg", category: null },
+    {
+      id: 0,
+      name: "전체",
+      category: null,
+      icon: <CategoryIcon />,
+    },
     {
       id: 1,
       name: "전자기기",
-      img: "/images/category-electronics.jpg",
       category: "electronics",
+      icon: <Devices />,
     },
     {
       id: 2,
       name: "의류",
-      img: "/images/category-clothing.jpg",
       category: "clothing",
+      icon: <Checkroom />,
     },
-    { id: 3, name: "책", img: "/images/category-books.jpg", category: "books" },
+    {
+      id: 3,
+      name: "책",
+      category: "books",
+      icon: <MenuBook />,
+    },
     {
       id: 4,
       name: "가구",
-      img: "/images/category-furniture.jpg",
       category: "furniture",
+      icon: <Chair />,
     },
     {
       id: 5,
       name: "스포츠",
-      img: "/images/category-sport.jpg",
       category: "sports",
+      icon: <SportsBasketball />,
     },
-    { id: 6, name: "게임", img: "/images/category-game.jpg", category: "game" },
+    {
+      id: 6,
+      name: "게임",
+      category: "game",
+      icon: <SportsEsports />,
+    },
   ];
 
   const handleCategoryClick = (category: string | null) => {
@@ -44,19 +67,16 @@ export default function Category({ selectedCategory, onCategorySelect }) {
         <div
           key={category.id}
           className={`flex flex-col items-center justify-center cursor-pointer ${
-            selectedCategory === category.category ? "border-b-2" : ""
+            selectedCategory === category.category
+              ? "border-b-2 border-orange-500 "
+              : ""
           }`}
           onClick={() => handleCategoryClick(category.category)}
         >
-          <Image
-            src={category.img}
-            alt={category.name}
-            width={80}
-            height={80}
-            style={{ width: 80, height: 80 }}
-            className="rounded-full h-16 w-16 sm:h-20 sm:w-20 hover:scale-110 transition-transform duration-300"
-          />
-          <span className="mt-2 text-sm">{category.name}</span>
+          <div className="text-4xl mb-2 hover:scale-110 transition-transform duration-300">
+            {category.icon}
+          </div>
+          <span className="text-sm">{category.name}</span>
         </div>
       ))}
     </div>
