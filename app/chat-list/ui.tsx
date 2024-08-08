@@ -49,7 +49,7 @@ export default function ChatRoomList() {
 
   if (error) return <p>에러가 발생했습니다: {error.message}</p>;
   return (
-    <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg border border-gray-200 mt-4 mr-1 ml-1">
+    <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg border border-gray-200 mt-4">
       <ul className="divide-y divide-gray-300">
         {chatRoomsQuery.map((room) => (
           <ChatRoomItem

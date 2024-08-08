@@ -13,8 +13,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function ChatList() {
   
   return (
-    <div>
+    <section className="p-1">
       <UI/>
-    </div>
+    </section>
   )
 }
