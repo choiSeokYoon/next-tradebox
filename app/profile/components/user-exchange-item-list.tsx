@@ -18,7 +18,7 @@ export default function UserExchangeItemList() {
     
       if (isError) return <p>에러가 발생했습니다: {error.message}</p>;
     return (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4 2xl:gap-20 pl-auto pr-auto  2xl:pl-10 2xl:pr-10">
         {UserExchangeItamListQuery &&
           UserExchangeItamListQuery.map((product) => (
             <ExchangeProduct key={product.id} product={product} />

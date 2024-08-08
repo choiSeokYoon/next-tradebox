@@ -51,17 +51,19 @@ export default function ExchangeItemDetail({ exchangeProduct }) {
           {images.length > 0 ? (
             <Image
               src={images[currentImageIndex].image_url}
-              alt={`교환 물건 이미지 ${currentImageIndex + 1}`}
-              layout="fill"
-              objectFit="cover"
+              alt={`교환 물건 이미지`}
+              fill
+              objectFit="contain"
+              objectPosition="center"
               className="rounded-lg lg:rounded-l-lg"
             />
           ) : (
             <Image
               src="/images/image-not-found.png"
               alt="이미지 없음"
-              layout="fill"
-              objectFit="cover"
+              fill
+              objectFit="contain"
+              objectPosition="center"
               className="rounded-lg lg:rounded-l-lg"
             />
           )}
@@ -84,7 +86,7 @@ export default function ExchangeItemDetail({ exchangeProduct }) {
             <h1 className="text-2xl font-bold text-gray-800">
               {exchangeProduct.title}
             </h1>
-            <span className="text-sm text-gray-500 absolute top-0 right-0">
+            <span className="text-sm text-gray-500 absolute -top-4 -right-4">
               {new Date(exchangeProduct.created_at).toLocaleDateString()}
             </span>
           </div>

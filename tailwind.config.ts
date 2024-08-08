@@ -8,7 +8,11 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {},
+  theme: {
+    screens: {
+      '2xl': '1490px',
+    },
+  },
   plugins: [require("@tailwindcss/typography")],
 };
 
