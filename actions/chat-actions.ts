@@ -45,6 +45,7 @@ export async function createChatRoom(
     .select("id")
     .eq("exchange_id", exchangeId)
     .eq("participant_id", participantId)
+    .eq("creator_id", user.id,)
     .single();
 
   if (existingChatRoom) {

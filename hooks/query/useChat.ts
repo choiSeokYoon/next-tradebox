@@ -37,7 +37,7 @@ export const useCreateChatRoom = () => {
     onError: (error) => {
       if (error.message === "이 채팅방이 이미 존재합니다.") {
         alert("이미 채팅한 기록이 있습니다.");
-        router.push("/chat");
+        router.push("/chat-list");
       } else {
         alert("채팅방 생성에 실패했습니다.");
       }
