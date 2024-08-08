@@ -1,19 +1,22 @@
 import { Textarea, Select, Option, Input } from "@material-tailwind/react";
-import { categoriesOptions, itemConditionOptions } from "utils/constants/constants";
+import {
+  categoriesOptions,
+  itemConditionOptions,
+} from "utils/constants/constants";
 
 export default function FormField({
-    title,
-    description,
-    itemCondition,
-    location,
-    category,
-    trade,
-    setTitle,
-    setDescription,
-    setItemCondition,
-    setLocation,
-    setCategory,
-    setTrade,
+  title,
+  description,
+  itemCondition,
+  location,
+  category,
+  trade,
+  setTitle,
+  setDescription,
+  setItemCondition,
+  setLocation,
+  setCategory,
+  setTrade,
 }) {
   const handleTitleChange = (e) => {
     if (e.target.value.length <= 20) {
@@ -39,29 +42,16 @@ export default function FormField({
         type="text"
         value={title}
         placeholder="제목"
-        label="타이틀"
+        label="제목"
         required
         onChange={handleTitleChange}
       />
       <Textarea
         value={description}
         label="설명란"
-        required
         rows={4}
         onChange={(e) => setDescription(e.target.value)}
-      />
-      <Select
-        value={itemCondition}
-        label="교환 물품 상태"
-        required
-        onChange={(e) => setItemCondition(e)}
-      >
-        {itemConditionOptions.map((itemConditionOption) => (
-          <Option key={itemConditionOption.value} value={itemConditionOption.value}>
-            {itemConditionOption.label}
-          </Option>
-        ))}
-      </Select>
+      />{" "}
       <Input
         type="text"
         value={location}
@@ -70,18 +60,6 @@ export default function FormField({
         placeholder="주소"
         required
       />
-      <Select
-        value={category}
-        label="카테고리"
-        required
-        onChange={(e) => setCategory(e)}
-      >
-        {categoriesOptions.map((categoriesOption) => (
-          <Option key={categoriesOption.value} value={categoriesOption.value}>
-            {categoriesOption.label}
-          </Option>
-        ))}
-      </Select>
       <Input
         type="text"
         value={trade}
@@ -90,6 +68,31 @@ export default function FormField({
         required
         onChange={handleTradeChange}
       />
+      <Select
+        value={itemCondition}
+        label="교환 물품 상태"
+        onChange={(e) => setItemCondition(e)}
+      >
+        {itemConditionOptions.map((itemConditionOption) => (
+          <Option
+            key={itemConditionOption.value}
+            value={itemConditionOption.value}
+          >
+            {itemConditionOption.label}
+          </Option>
+        ))}
+      </Select>
+      <Select
+        value={category}
+        label="카테고리"
+        onChange={(e) => setCategory(e)}
+      >
+        {categoriesOptions.map((categoriesOption) => (
+          <Option key={categoriesOption.value} value={categoriesOption.value}>
+            {categoriesOption.label}
+          </Option>
+        ))}
+      </Select>
     </>
   );
 }

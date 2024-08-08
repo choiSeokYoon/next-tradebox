@@ -10,7 +10,7 @@ export default function UI() {
   const [description, setDescription] = useState("");
   const [itemCondition, setItemCondition] = useState("GOOD");
   const [location, setLocation] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("ELECTRONICS");
   const [trade, setTrade] = useState("");
   const [fileDragDropVisible, setFileDragDropVisible] = useState(false);
   const [exchangeId, setExchangeId] = useState(null);
