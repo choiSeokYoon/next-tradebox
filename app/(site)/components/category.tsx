@@ -22,37 +22,37 @@ export default function Category({ selectedCategory, onCategorySelect }) {
     {
       id: 1,
       name: "전자기기",
-      category: "electronics",
+      category: "ELECTRONICS",
       icon: <Devices />,
     },
     {
       id: 2,
       name: "의류",
-      category: "clothing",
+      category: "CLOTHING",
       icon: <Checkroom />,
     },
     {
       id: 3,
       name: "책",
-      category: "books",
+      category: "BOOK",
       icon: <MenuBook />,
     },
     {
       id: 4,
       name: "가구",
-      category: "furniture",
+      category: "FURNITURE",
       icon: <Chair />,
     },
     {
       id: 5,
       name: "스포츠",
-      category: "sports",
+      category: "SPORT",
       icon: <SportsBasketball />,
     },
     {
       id: 6,
       name: "게임",
-      category: "game",
+      category: "GAME",
       icon: <SportsEsports />,
     },
   ];
