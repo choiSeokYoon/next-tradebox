@@ -8,6 +8,9 @@ import ReocilProvider from "config/ReocilPorvider";
 import ReactQueryClientProvider from "config/ReactQueryClientPorvider";
 import { createServerSupabaseClient } from "utils/supabase/server";
 import AuthProvider from "config/AuthProvider";
+import ToasterProvider from "config/ToastProvider";
+
+
 
 
 const jua = Jua({ subsets: ["latin"], weight: ["400"] });
@@ -40,7 +43,9 @@ export default async function RootLayout({ children }) {
             </head>
             <AuthProvider accessToken={session?.access_token}>
               <body className={jua.className}>
+              <ToasterProvider>
                 {session?.user ? <MainLayout>{children}</MainLayout> : <Auth />}
+                </ToasterProvider>
               </body>
             </AuthProvider>
           </html>
