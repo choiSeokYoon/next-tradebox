@@ -28,14 +28,14 @@ export const useCreateChatRoom = () => {
     }: CreateChatRoomInputType) =>
       createChatRoom(productId, userId, title, imgUrl, nickname),
     onSuccess: () => {
-      alert("채팅방이 성공적으로 생성되었습니다.");
+      toast.success("채팅방이 성공적으로 생성되었습니다.");
       router.push('/chat-list');
       queryClient.invalidateQueries({
         queryKey: ["get_chatItem"],
       });
     },
     onError: (error) => {
-      if (error.message === "이 채팅방이 이미 존재합니다.") {
+      if (error.message === "DuplicateChatRoomError") {
         alert("이미 채팅한 기록이 있습니다. 채팅 목록으로 이동합니다.");
         router.push("/chat-list");
       } else {

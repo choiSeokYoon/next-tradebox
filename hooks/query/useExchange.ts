@@ -34,6 +34,7 @@ export const useCreateExchange = (onSuccessCallback) => {
     mutationFn: createExchange,
     onSuccess: (data) => {
       onSuccessCallback(data);
+      toast.success("성공적으로 생성 하셨습니다.");
       queryClient.invalidateQueries({
         queryKey: ["get_exchanges"],
       });
@@ -51,6 +52,7 @@ export const useUpdateExchange = (exchangeId) => {
     mutationFn: updateExchange,
     onSuccess: () => {
       router.push(`/exchanges/${exchangeId}`);
+      toast.success("성공적으로 업데이트 하셨습니다.");
       queryClient.invalidateQueries({
         queryKey: ["get_exchanges"],
       });
