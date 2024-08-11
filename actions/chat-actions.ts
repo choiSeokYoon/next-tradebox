@@ -48,11 +48,9 @@ export async function createChatRoom(
     .eq("creator_id", user.id,)
     .single();
 
-    if (existingChatRoom) {
-      const error = new Error("이 채팅방이 이미 존재합니다.");
-      error.name = "DuplicateChatRoomError";
-      throw error;
-    }
+  if (existingChatRoom) {
+    throw new Error("이 채팅방이 이미 존재합니다.");
+  }
 
   const { data, error } = await supabase
     .from("chat_rooms")

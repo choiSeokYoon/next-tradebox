@@ -35,7 +35,7 @@ export const useCreateChatRoom = () => {
       });
     },
     onError: (error) => {
-      if (error.message === "DuplicateChatRoomError") {
+      if (error.message === "이 채팅방이 이미 존재합니다.") {
         alert("이미 채팅한 기록이 있습니다. 채팅 목록으로 이동합니다.");
         router.push("/chat-list");
       } else {
