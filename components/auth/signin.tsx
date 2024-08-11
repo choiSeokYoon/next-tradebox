@@ -9,8 +9,8 @@ import { userInfoState } from "recoil/atoms";
 
 export default function Signin({ setView }) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("testid1@test.com");
+  const [password, setPassword] = useState("test");
 
   const signInMutation = useSignIn();
 
