@@ -1,8 +1,8 @@
 "use client";
 
 import { getMessages, sendMessage } from "actions/chat-actions";
-import ChatMessageInput from "components/chat/ChatMessageInput";
-import { ChatMessageList } from "components/chat/ChatMesseageList";
+import ChatMessageInput from "components/chat/chat-message-Input";
+import { ChatMessageList } from "components/chat/chat-messeage-list";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { selectedChatRoomState } from "recoil/atoms";

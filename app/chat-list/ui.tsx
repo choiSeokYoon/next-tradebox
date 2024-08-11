@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { selectedChatRoomState } from "recoil/atoms";
 import { createBrowserSupabaseClient } from "utils/supabase/client";
 import { useFetchChatList } from "hooks/query/useChat";
-import ChatRoomItem from "components/chat/ChatRoomItem";
+import ChatRoomItem from "components/chat/chat-room-Item";
 
 export default function ChatRoomList() {
   const {

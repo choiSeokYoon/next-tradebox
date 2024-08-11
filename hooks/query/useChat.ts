@@ -6,6 +6,7 @@ import {
 } from "actions/chat-actions";
 import { queryClient } from "config/ReactQueryClientPorvider";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import { CreateChatRoomInputType } from "types";
 
 export const useFetchChatList = () => {
@@ -33,13 +34,13 @@ export const useCreateChatRoom = () => {
         queryKey: ["get_chatItem"],
       });
     },
-
     onError: (error) => {
       if (error.message === "이 채팅방이 이미 존재합니다.") {
-        alert("이미 채팅한 기록이 있습니다.");
+        alert("이미 채팅한 기록이 있습니다. 채팅 목록으로 이동합니다.");
         router.push("/chat-list");
       } else {
-        alert("채팅방 생성에 실패했습니다.");
+        console.error("채팅 방 생성 중 오류 발생:", error);
+        toast.error("채팅 방 생성 중 오류가 발생했습니다. 다시 시도해 주세요.");
       }
     },
   });
@@ -48,5 +49,14 @@ export const useCreateChatRoom = () => {
 export const useDeleteChatRoom = (id, creatorId) => {
   return useMutation({
     mutationFn: () => deleteChatRoom(id, creatorId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["get_chatItem"],
+      });
+    },
+    onError: (error) => {
+      console.error("채팅 방 삭제 중 오류 발생:", error);
+      toast.error("채팅 방 삭제 중 오류가 발생했습니다. 다시 시도해 주세요.");
+    },
   });
 };

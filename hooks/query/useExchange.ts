@@ -9,6 +9,7 @@ import {
 } from "actions/exchange-actions";
 import { queryClient } from "config/ReactQueryClientPorvider";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import { searchState } from "recoil/atoms";
 
@@ -37,6 +38,10 @@ export const useCreateExchange = (onSuccessCallback) => {
         queryKey: ["get_exchanges"],
       });
     },
+    onError: (error) => {
+      console.error("생성 중 오류 발생:", error);
+      toast.error("생성 중 오류가 발생했습니다. 다시 시도해 주세요.");
+    },
   });
 };
 
@@ -49,6 +54,10 @@ export const useUpdateExchange = (exchangeId) => {
       queryClient.invalidateQueries({
         queryKey: ["get_exchanges"],
       });
+    },
+    onError: (error) => {
+      console.error("업데이트 중 오류 발생:", error);
+      toast.error("업데이트 중 오류가 발생했습니다. 다시 시도해 주세요.");
     },
   });
 };
@@ -63,6 +72,10 @@ export const useDeleteExchange = (exchangeId) => {
       queryClient.invalidateQueries({
         queryKey: ["get_exchanges"],
       });
+    },
+    onError: (error) => {
+      console.error("삭제 중 오류 발생:", error);
+      toast.error("삭제 중 오류가 발생했습니다. 다시 시도해 주세요.");
     },
   });
 };
