@@ -18,7 +18,7 @@
    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
   <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=vercel&logoColor=white" />
   <img src="https://img.shields.io/badge/SUPABASE-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
-  <img src="https://img.shields.io/badge/ReactQuery-FF4154?style=for-the-badge&logo=react-query&logoColor=white" />
+  <img src="https://img.shields.io/badge/Tanstack-Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white" />
   <img src="https://img.shields.io/badge/Recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
   <img src="https://img.shields.io/badge/Material--UI-007FFF?style=for-the-badge&logo=mui&logoColor=white" />
@@ -68,6 +68,12 @@ NEXT_SUPABASE_DB_PASSWORD=
 NEXT_PUBLIC_STORAGE_BUCKET=
 ```
 ---
+
+### 경험
+- Next를 이용하여 서버 사이드 렌더링과 클라이언트 사이드 렌더링을 조합하고, 메타 태그를 활용하여 SEO 개선
+- Supabase가 제공하는 OTP 인증으로 회원가입하고 Authentication에서 유저 정보 관리
+- Supabase로 서버와 데이터베이스를 구축하고 Realtime을 이용하여 실시간 채팅 방 개설 및 채팅 구현
+- Tailwind를 활용해서 UI와 반응형 페이지 구성
 
 ### 느낀점
 이전까지 주로 CSR 방식의 개발해 왔습니다. 이번에 SSR개발 방식을 적용하고자 했고, SSR을 지원하는 프레임워크중 가장 생태계가 큰 Next 프레임워크를 선택하게 됐습니다. Next는 리액트와 다르게 앱 라우터를 통해 쉽게 라우팅 할 수 있었고, 복잡한 설정 없이 쉽게 CSR을 구현할 수 있어 렌더링 방식을 유연하게 선택할 수 있었습니다. 더불어 메타 태그를 이용하여 SSR의 장점인 SEO에 좀 더 효과적으로 대응할 수 있었습니다.
