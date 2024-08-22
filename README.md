@@ -18,7 +18,7 @@
    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
   <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=vercel&logoColor=white" />
   <img src="https://img.shields.io/badge/SUPABASE-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
-  <img src="https://img.shields.io/badge/Tanstack-Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white" />
+  <img src="https://img.shields.io/badge/Tanstack--Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white" />
   <img src="https://img.shields.io/badge/Recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
   <img src="https://img.shields.io/badge/Material--UI-007FFF?style=for-the-badge&logo=mui&logoColor=white" />
