@@ -25,8 +25,9 @@ const ExchangeProduct = ({ product }) => {
             src={imageUrl || "/images/image-not-found.png"}
             alt={productTitle || "교환 물건 이미지"}
             fill
-            objectFit="cover"
-            className="transition-transform duration-300 rounded"
+            sizes="650px"
+            className="transition-transform duration-300 rounded object-cover"
+            priority
           />
         </div>
         <div className="p-4 flex-1 min-w-0">

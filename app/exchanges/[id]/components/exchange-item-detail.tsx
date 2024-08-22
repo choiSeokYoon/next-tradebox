@@ -53,18 +53,18 @@ export default function ExchangeItemDetail({ exchangeProduct }) {
               src={images[currentImageIndex].image_url}
               alt={`교환 물건 이미지`}
               fill
-              objectFit="contain"
-              objectPosition="center"
-              className="rounded-lg lg:rounded-l-lg"
+              className="rounded-lg lg:rounded-l-lg object-contain"
+              sizes="650px"
+              priority
             />
           ) : (
             <Image
               src="/images/image-not-found.png"
               alt="이미지 없음"
               fill
-              objectFit="contain"
-              objectPosition="center"
-              className="rounded-lg lg:rounded-l-lg"
+              className="rounded-lg lg:rounded-l-lg object-cover"
+              sizes="650px"
+              priority
             />
           )}
           {images.length > 1 && (

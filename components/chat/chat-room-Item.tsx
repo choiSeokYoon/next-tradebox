@@ -31,9 +31,10 @@ export default function ChatRoomItem({ room, onClick }) {
             <Image
               src={room.img_url || "/images/image-not-found.png"}
               alt="교환 물건 이미지"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-full border border-gray-300"
+              fill
+              sizes="650px"
+              className="rounded-full border border-gray-300 object-cover"
+              priority
             />
           </div>
           <div className="ml-4 flex-grow">
@@ -50,8 +51,7 @@ export default function ChatRoomItem({ room, onClick }) {
               src={room.img_url || "/images/image-not-found.png"}
               alt="교환 물건 이미지"
               layout="fill"
-              objectFit="cover"
-              className="rounded-full border border-gray-300"
+              className="rounded-full border border-gray-300 object-cover"
             />
           </div>
           <div className="ml-4 flex-grow">
