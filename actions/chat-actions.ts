@@ -49,7 +49,11 @@ export async function createChatRoom(
     .single();
 
   if (existingChatRoom) {
-    throw new Error("이 채팅방이 이미 존재합니다.");
+    return {
+      message: "이 채팅방이 이미 존재합니다.",
+      chatRoomId: existingChatRoom.id,
+    }
+
   }
 
   const { data, error } = await supabase
